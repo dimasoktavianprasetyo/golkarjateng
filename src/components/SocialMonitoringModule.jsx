@@ -21,7 +21,18 @@ import {
   Layers,
   ShieldCheck,
   Check,
-  ExternalLink
+  ExternalLink,
+  Webhook,
+  Copy,
+  Terminal,
+  Cpu,
+  Play,
+  RefreshCw,
+  FileCode,
+  CheckCircle,
+  HelpCircle,
+  Clock,
+  ArrowRight
 } from 'lucide-react';
 import { 
   SOCIAL_SENTIMENT_DATA, 
@@ -30,7 +41,7 @@ import {
   WA_BROADCAST_CAMPAIGNS 
 } from '../data/mockData';
 
-export default function SocialMonitoringModule() {
+export default function SocialMonitoringModule({ onNavigateTab }) {
   const [activeTab, setActiveTab] = useState('tweets'); // tweets, kol, radar, wa_broadcast
   const [sentimentFilter, setSentimentFilter] = useState('ALL'); // ALL, POSITIF, NETRAL, KRITIS
   const [searchQuery, setSearchQuery] = useState('');
@@ -729,70 +740,120 @@ export default function SocialMonitoringModule() {
       )}
 
       {/* ========================================================================= */}
-      {/* TAB 4: WHATSAPP BROADCAST HUB */}
+      {/* ========================================================================= */}
+      {/* TAB 4: WHATSAPP BROADCAST HUB (HUMAS / NON-IT FRIENDLY) */}
       {/* ========================================================================= */}
       {activeTab === 'wa_broadcast' && (
         <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px' }}>
-          {/* Left: Broadcast Campaigns List */}
-          <div className="enterprise-panel">
-            <div className="panel-header">
-              <div className="panel-title-wrap">
-                <span className="panel-title">Pusat Siaran Notifikasi WhatsApp</span>
-                <span className="panel-subtitle">Engine distribusi resmi pesan terjadwal & KTA digital</span>
+          {/* Left: Broadcast Campaigns List & Humas Tools */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="enterprise-panel">
+              <div className="panel-header">
+                <div className="panel-title-wrap">
+                  <span className="panel-title">Pusat Siaran Notifikasi WhatsApp</span>
+                  <span className="panel-subtitle">Distribusi resmi pesan terjadwal, agenda & KTA digital ke kader</span>
+                </div>
+                <button 
+                  className="btn-primary"
+                  onClick={() => alert('Fitur simulasi: Form penyusunan siaran massal dengan segmentasi pemilih & KTA aktif')}
+                  style={{ height: '34px', padding: '0 12px', fontSize: '12px' }}
+                >
+                  + Buat Siaran Baru
+                </button>
               </div>
-              <button 
-                className="btn-primary"
-                onClick={() => alert('Fitur simulasi: Buka form penulisan siaran massal dengan segmentasi pemilih')}
-                style={{ height: '34px', padding: '0 12px', fontSize: '12px' }}
-              >
-                + Buat Siaran Baru
-              </button>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                {WA_BROADCAST_CAMPAIGNS.map((camp, idx) => (
+                  <div 
+                    key={camp.id}
+                    onClick={() => setActiveCampaignIdx(idx)}
+                    style={{
+                      padding: '16px',
+                      borderRadius: '12px',
+                      backgroundColor: activeCampaignIdx === idx ? '#f0fdf4' : '#ffffff',
+                      border: activeCampaignIdx === idx ? '2px solid #22c55e' : '1px solid #e2e8f0',
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#64748b' }}>{camp.id} · {camp.date}</span>
+                      <span className="metric-badge badge-success">{camp.status}</span>
+                    </div>
+
+                    <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 6px 0' }}>
+                      {camp.title}
+                    </h4>
+
+                    <div style={{ fontSize: '12px', color: '#0284c7', fontWeight: 600, marginBottom: '10px' }}>
+                      Target: {camp.targetSegment}
+                    </div>
+
+                    {/* Delivery Stats Bar */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px', padding: '8px', backgroundColor: '#f8fafc', borderRadius: '8px', textAlign: 'center', fontSize: '11px' }}>
+                      <div>
+                        <div style={{ color: '#64748b' }}>Terkirim</div>
+                        <div style={{ fontWeight: 800, color: '#0f172a' }}>{camp.sentCount.toLocaleString('id-ID')}</div>
+                      </div>
+                      <div>
+                        <div style={{ color: '#64748b' }}>Diterima</div>
+                        <div style={{ fontWeight: 800, color: '#059669' }}>{camp.deliveredCount.toLocaleString('id-ID')}</div>
+                      </div>
+                      <div>
+                        <div style={{ color: '#64748b' }}>Dibaca</div>
+                        <div style={{ fontWeight: 800, color: '#0284c7' }}>{camp.readCount.toLocaleString('id-ID')}</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              {WA_BROADCAST_CAMPAIGNS.map((camp, idx) => (
-                <div 
-                  key={camp.id}
-                  onClick={() => setActiveCampaignIdx(idx)}
-                  style={{
-                    padding: '16px',
-                    borderRadius: '12px',
-                    backgroundColor: activeCampaignIdx === idx ? '#f0fdf4' : '#ffffff',
-                    border: activeCampaignIdx === idx ? '2px solid #22c55e' : '1px solid #e2e8f0',
-                    cursor: 'pointer',
-                    transition: 'all 0.15s ease'
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                    <span style={{ fontSize: '11px', fontWeight: 800, color: '#64748b' }}>{camp.id} · {camp.date}</span>
-                    <span className="metric-badge badge-success">{camp.status}</span>
+            {/* IT / Developer Referral Banner for Non-IT User Clarity */}
+            <div style={{
+              padding: '16px 20px',
+              borderRadius: '14px',
+              backgroundColor: '#0f172a',
+              color: '#ffffff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '16px',
+              boxShadow: '0 4px 12px rgba(15, 23, 42, 0.15)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{
+                  width: '38px',
+                  height: '38px',
+                  borderRadius: '10px',
+                  backgroundColor: 'rgba(245, 158, 11, 0.2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#f59e0b',
+                  flexShrink: 0
+                }}>
+                  <Terminal size={18} />
+                </div>
+                <div>
+                  <div style={{ fontSize: '13px', fontWeight: 800, color: '#ffffff' }}>
+                    Butuh Integrasi Webhook / API WhatsApp?
                   </div>
-
-                  <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 6px 0' }}>
-                    {camp.title}
-                  </h4>
-
-                  <div style={{ fontSize: '12px', color: '#0284c7', fontWeight: 600, marginBottom: '10px' }}>
-                    Target: {camp.targetSegment}
-                  </div>
-
-                  {/* Delivery Stats Bar */}
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px', padding: '8px', backgroundColor: '#f8fafc', borderRadius: '8px', textAlign: 'center', fontSize: '11px' }}>
-                    <div>
-                      <div style={{ color: '#64748b' }}>Terkirim</div>
-                      <div style={{ fontWeight: 800, color: '#0f172a' }}>{camp.sentCount.toLocaleString('id-ID')}</div>
-                    </div>
-                    <div>
-                      <div style={{ color: '#64748b' }}>Diterima</div>
-                      <div style={{ fontWeight: 800, color: '#059669' }}>{camp.deliveredCount.toLocaleString('id-ID')}</div>
-                    </div>
-                    <div>
-                      <div style={{ color: '#64748b' }}>Dibaca</div>
-                      <div style={{ fontWeight: 800, color: '#0284c7' }}>{camp.readCount.toLocaleString('id-ID')}</div>
-                    </div>
+                  <div style={{ fontSize: '11.5px', color: '#94a3b8', marginTop: '2px' }}>
+                    Konfigurasi Meta WhatsApp Cloud API, handshake token, dan payload simulator dikelola khusus di <strong>GolkarJateng for Developers</strong>.
                   </div>
                 </div>
-              ))}
+              </div>
+
+              <button
+                type="button"
+                className="btn-primary"
+                onClick={() => onNavigateTab && onNavigateTab('developers')}
+                style={{ height: '36px', padding: '0 14px', fontSize: '12px', whiteSpace: 'nowrap', gap: '6px' }}
+              >
+                <span>Buka Developer Portal</span>
+                <ArrowRight size={14} />
+              </button>
             </div>
           </div>
 

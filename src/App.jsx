@@ -14,6 +14,7 @@ import MemberOrganizationModule from './components/MemberOrganizationModule';
 import AuditAndSecurityModule from './components/AuditAndSecurityModule';
 import ExecutiveReportsModule from './components/ExecutiveReportsModule';
 import SystemAccessModule from './components/SystemAccessModule';
+import GolkarDevelopersModule from './components/GolkarDevelopersModule';
 
 import KtpScannerModal from './components/KtpScannerModal';
 import C1ScannerModal from './components/C1ScannerModal';
@@ -221,7 +222,11 @@ export default function App() {
           )}
 
           {currentTab === 'social_monitoring' && (
-            <SocialMonitoringModule />
+            <SocialMonitoringModule onNavigateTab={(tab) => setCurrentTab(tab)} />
+          )}
+
+          {currentTab === 'developers' && (
+            <GolkarDevelopersModule onNavigateTab={(tab) => setCurrentTab(tab)} />
           )}
 
           {currentTab === 'access_control' && (

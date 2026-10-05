@@ -14,7 +14,8 @@ import {
   UserCheck,
   ChevronLeft, 
   ChevronRight,
-  Sparkles
+  Sparkles,
+  Terminal
 } from 'lucide-react';
 import golkarLogo from '../assets/Logo_Golkar.webp';
 
@@ -59,6 +60,7 @@ export default function Sidebar({
       items: [
         { id: 'social_monitoring', label: 'Monitoring Isu Publik', icon: BarChart3, badge: '+18%' },
         { id: 'access_control', label: 'Kelola Akses & Pengguna', icon: UserCheck, badge: '5 Peran' },
+        { id: 'developers', label: 'Golkar for Developers', icon: Terminal, badge: 'API' },
         { id: 'audit', label: 'Audit Trail & Keamanan', icon: ShieldAlert }
       ]
     }
