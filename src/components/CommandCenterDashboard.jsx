@@ -15,7 +15,8 @@ import {
   ShieldCheck, 
   ChevronRight,
   Sparkles,
-  Download
+  Download,
+  CreditCard
 } from 'lucide-react';
 import { KAB_KOTA_JATENG, EVENTS_DATA, CONTRIBUTORS_LEADERBOARD } from '../data/mockData';
 
@@ -65,120 +66,73 @@ export default function CommandCenterDashboard({
         </div>
       </div>
 
-      {/* METRICS ROW (EXACT DESIGN FROM REFERENCE IMAGE) */}
+      {/* METRICS ROW (EXACT DESIGN SYSTEM FOR GOLKAR JATENG COMMAND CENTER) */}
       <div className="metrics-grid">
-        {/* Card 1: Rata-Rata IKE Fasilitas / Total Pemuda */}
+        {/* Card 1: Total Kader Pemuda Terdata */}
         <MetricCard
-          icon={Sun}
+          icon={Users}
           iconBg="#FEF3C7"
           iconColor="#D97706"
-          title="Rata-Rata IKE Fasilitas"
+          title="Total Kader Pemuda"
           badges={[
-            { label: 'Efisien', type: 'success' },
-            { label: 'Moderate', type: 'neutral' },
-            { label: 'Baseline', type: 'neutral' }
+            { label: '92.8% Target', type: 'success' },
+            { label: 'Gen Z & Milenial', type: 'neutral' },
+            { label: '35 Kab/Kota', type: 'neutral' }
           ]}
-          value="1.800"
-          unit="GJ/Ton"
-          subtext="Normalisasi US DOE 2020"
+          value={totalYouth.toLocaleString('id-ID')}
+          unit="Kader"
+          subtext={`Target: ${totalTarget.toLocaleString('id-ID')} (+18.4% YoY)`}
           visualType="sparkline-green"
         />
 
-        {/* Card 2: Pemborosan Terdeteksi / Deviasi */}
+        {/* Card 2: KTA Digital Diterbitkan */}
         <MetricCard
-          icon={AlertCircle}
-          iconBg="#F1F5F9"
-          iconColor="#475569"
-          title="Pemborosan Terdeteksi"
+          icon={CreditCard}
+          iconBg="#EFF6FF"
+          iconColor="#2563EB"
+          title="Penerbitan KTA Digital"
           badges={[
-            { label: 'Deviasi', type: 'danger' },
-            { label: 'Residu +1.5σ', type: 'neutral' }
+            { label: '92.3% Terbit', type: 'success' },
+            { label: 'Ber-QR Code', type: 'neutral' }
           ]}
-          value="108.7"
-          unit="GJ"
-          subtext="~Rp 33 Juta (Deviasi Terakumulasi)"
-          visualType="sparkline-red"
-        />
-
-        {/* Card 3: Integritas Telemetri Sensor */}
-        <MetricCard
-          icon={Database}
-          iconBg="#F0F9FF"
-          iconColor="#0284C7"
-          title="Integritas Telemetri Sensor"
-          badges={[
-            { label: 'Validasi Fisik', type: 'info' },
-            { label: '0 Hilang', type: 'success' }
-          ]}
-          value="90"
-          unit="/90"
-          subtext="100% Lolos Validasi Fisik"
+          value="355.000"
+          unit="KTA"
+          subtext="WhatsApp Gateway Delivery Aktif"
           visualType="slider-progress"
-          visualValue={90}
+          visualValue={92}
         />
 
-        {/* Card 4: Biaya Useful Heat CNG */}
+        {/* Card 3: Kesiapan Saksi TPS BSNPG */}
         <MetricCard
-          icon={DollarSign}
-          iconBg="#F8FAFC"
-          iconColor="#334155"
-          title="Biaya Useful Heat CNG"
+          icon={Vote}
+          iconBg="#F0FDF4"
+          iconColor="#16A34A"
+          title="Kesiapan Saksi TPS (BSNPG)"
           badges={[
-            { label: 'Pasokan AGE', type: 'success' },
-            { label: 'LHV Basis', type: 'neutral' }
+            { label: '115.420 TPS', type: 'info' },
+            { label: '10 Dapil', type: 'success' }
           ]}
-          value="Rp 242.596"
-          unit="/GJ"
-          subtext="Hemat 37.7% vs LPG"
+          value="98.4"
+          unit="% TPS"
+          subtext={`115.420 dari ${totalTps.toLocaleString('id-ID')} TPS se-Jateng`}
           visualType="mini-bars"
         />
-      </div>
 
-      {/* SECONDARY ROW: GOLKAR JATENG SPECIFIC KPI METRICS */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '18px', marginBottom: '24px' }}>
-        <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '14px' }}>
-          <div style={{ width: '42px', height: '42px', borderRadius: '12px', backgroundColor: '#fef3c7', color: '#b45309', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <Users size={22} />
-          </div>
-          <div>
-            <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>Database Pemuda Jateng</div>
-            <div style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a' }}>{totalYouth.toLocaleString('id-ID')} <span style={{ fontSize: '11px', fontWeight: 600, color: '#10b981' }}>+4.2%</span></div>
-            <div style={{ fontSize: '11px', color: '#94a3b8' }}>Target: {totalTarget.toLocaleString('id-ID')}</div>
-          </div>
-        </div>
-
-        <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '14px' }}>
-          <div style={{ width: '42px', height: '42px', borderRadius: '12px', backgroundColor: '#ecfdf5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <ShieldCheck size={22} />
-          </div>
-          <div>
-            <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>KTA Digital Terbit</div>
-            <div style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a' }}>{totalKta.toLocaleString('id-ID')} <span style={{ fontSize: '11px', fontWeight: 600, color: '#059669' }}>88.2%</span></div>
-            <div style={{ fontSize: '11px', color: '#94a3b8' }}>Terverifikasi QR & NIK</div>
-          </div>
-        </div>
-
-        <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '14px' }}>
-          <div style={{ width: '42px', height: '42px', borderRadius: '12px', backgroundColor: '#f0f9ff', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <Vote size={22} />
-          </div>
-          <div>
-            <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>C1 Plano Masuk</div>
-            <div style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a' }}>{c1Percentage}% <span style={{ fontSize: '11px', fontWeight: 600, color: '#0284c7' }}>{totalC1.toLocaleString('id-ID')} TPS</span></div>
-            <div style={{ fontSize: '11px', color: '#94a3b8' }}>Total {totalTps.toLocaleString('id-ID')} TPS Se-Jateng</div>
-          </div>
-        </div>
-
-        <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '14px' }}>
-          <div style={{ width: '42px', height: '42px', borderRadius: '12px', backgroundColor: '#fff1f2', color: '#e11d48', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <Calendar size={22} />
-          </div>
-          <div>
-            <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>Event & Pelatihan</div>
-            <div style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a' }}>{EVENTS_DATA.length} Event <span style={{ fontSize: '11px', fontWeight: 600, color: '#e11d48' }}>Live</span></div>
-            <div style={{ fontSize: '11px', color: '#94a3b8' }}>8.410 Peserta Terdaftar</div>
-          </div>
-        </div>
+        {/* Card 4: Validitas Formulir C1 Plano */}
+        <MetricCard
+          icon={ShieldCheck}
+          iconBg="#FEFCE8"
+          iconColor="#CA8A04"
+          title="Validitas Formulir C1 Plano"
+          badges={[
+            { label: 'Lolos Audit', type: 'success' },
+            { label: 'Nir-Duplikasi', type: 'neutral' }
+          ]}
+          value="99.4"
+          unit="% Sah"
+          subtext={`${totalC1.toLocaleString('id-ID')} TPS sinkron Formulir Plano`}
+          visualType="sparkline-green"
+        />
       </div>
 
       {/* TWO COLUMN ENTERPRISE SECTION */}
@@ -410,28 +364,28 @@ export default function CommandCenterDashboard({
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', backgroundColor: '#f8fafc', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
               <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981' }}></div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0f172a' }}>VERIFY_KTP_OCR (Rizky Alamsyah)</div>
-                <div style={{ fontSize: '11px', color: '#64748b' }}>Operator DPD I · 13:15 WIB · IP 192.168.10.45</div>
+                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0f172a' }}>Verifikasi Berkas KTP Pemuda</div>
+                <div style={{ fontSize: '11px', color: '#64748b' }}>Rizky Alamsyah · Operator DPD I Jawa Tengah · 13:15 WIB</div>
               </div>
-              <span className="metric-badge badge-success">SUCCESS</span>
+              <span className="metric-badge badge-success">Terverifikasi</span>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', backgroundColor: '#fff1f2', borderRadius: '10px', border: '1px solid #fecdd3' }}>
-              <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#e11d48' }}></div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', backgroundColor: '#fffbeb', borderRadius: '10px', border: '1px solid #fde68a' }}>
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#f59e0b' }}></div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0f172a' }}>DETECT_DUPLICATE_NIK (Demak)</div>
-                <div style={{ fontSize: '11px', color: '#64748b' }}>Sistem OCR · NIK 3321061907990002 terdeteksi ganda</div>
+                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0f172a' }}>Pencegahan Duplikasi NIK Kependudukan</div>
+                <div style={{ fontSize: '11px', color: '#64748b' }}>Wilayah Kab. Demak · 1 Data NIK ganda dicegah sistem · 12:45 WIB</div>
               </div>
-              <span className="metric-badge badge-danger">WARNING</span>
+              <span className="metric-badge badge-warning" style={{ backgroundColor: '#fef3c7', color: '#b45309' }}>Peringatan Dicegah</span>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', backgroundColor: '#f8fafc', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
               <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#0284c7' }}></div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0f172a' }}>BATCH_VALIDATE_C1 (Kota Semarang)</div>
-                <div style={{ fontSize: '11px', color: '#64748b' }}>BSNPG Engine · 4.646 TPS sinkron dengan form model C1</div>
+                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0f172a' }}>Sinkronisasi Formulir C1 Plano Masuk</div>
+                <div style={{ fontSize: '11px', color: '#64748b' }}>Kota Semarang · 4.646 TPS sinkron dengan plano fisik BSNPG · 12:30 WIB</div>
               </div>
-              <span className="metric-badge badge-info">VERIFIED</span>
+              <span className="metric-badge badge-info">100% Sah</span>
             </div>
           </div>
         </div>

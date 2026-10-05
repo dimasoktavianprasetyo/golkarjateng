@@ -10,16 +10,30 @@ import {
   ChevronDown, 
   CheckCircle2, 
   AlertTriangle,
-  FileSpreadsheet
+  FileSpreadsheet,
+  FileText,
+  Sparkles,
+  X,
+  Mail,
+  Phone,
+  MapPin,
+  KeyRound,
+  ExternalLink,
+  LogOut,
+  CreditCard
 } from 'lucide-react';
 import { NOTIFICATIONS_LOG } from '../data/mockData';
+import golkarLogo from '../assets/Logo_Golkar.webp';
 
 export default function Header({ 
+  currentTab,
+  onNavigateTab,
   activeRole, 
   setActiveRole, 
   onOpenKtpModal, 
   onOpenQrModal,
   onOpenExportModal,
+  onOpenAccountModal,
   searchQuery,
   setSearchQuery,
   onSelectSearchResult
@@ -79,6 +93,62 @@ export default function Header({
 
       {/* Right: Quick Tools, Role Switcher & Profile */}
       <div className="header-right">
+        {/* Executive Reports Navbar Tab */}
+        <button
+          className="quick-action-btn"
+          onClick={() => onNavigateTab && onNavigateTab('executive_reports')}
+          title="Buka Dokumen Executive Briefing & Laporan Strategis Pemenangan DPD I"
+          style={{
+            height: '36px',
+            backgroundColor: currentTab === 'executive_reports' ? '#0f172a' : '#f8fafc',
+            color: currentTab === 'executive_reports' ? '#ffffff' : '#334155',
+            border: '1px solid ' + (currentTab === 'executive_reports' ? '#0f172a' : '#e2e8f0'),
+            borderRadius: '10px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '7px',
+            padding: '0 13px',
+            fontSize: '12.5px',
+            fontWeight: 700,
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+            flexShrink: 0,
+            boxShadow: currentTab === 'executive_reports' ? '0 2px 4px rgba(15, 23, 42, 0.15)' : 'none',
+            transition: 'all 0.15s ease'
+          }}
+        >
+          <FileText size={15} color={currentTab === 'executive_reports' ? '#ffffff' : '#64748b'} />
+          <span>Executive Reports</span>
+        </button>
+
+        {/* Kelola Akses Sistem Navbar Tab */}
+        <button
+          className="quick-action-btn"
+          onClick={() => onNavigateTab && onNavigateTab('access_control')}
+          title="Kelola Akses Sistem, Daftar Pengguna & Otoritas Peran (RBAC)"
+          style={{
+            height: '36px',
+            backgroundColor: currentTab === 'access_control' ? '#0f172a' : '#f8fafc',
+            color: currentTab === 'access_control' ? '#ffffff' : '#334155',
+            border: '1px solid ' + (currentTab === 'access_control' ? '#0f172a' : '#e2e8f0'),
+            borderRadius: '10px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '7px',
+            padding: '0 13px',
+            fontSize: '12.5px',
+            fontWeight: 700,
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+            flexShrink: 0,
+            boxShadow: currentTab === 'access_control' ? '0 2px 4px rgba(15, 23, 42, 0.15)' : 'none',
+            transition: 'all 0.15s ease'
+          }}
+        >
+          <UserCheck size={15} color={currentTab === 'access_control' ? '#ffffff' : '#64748b'} />
+          <span>Kelola Akses</span>
+        </button>
+
         {/* Quick KTP Scan Button */}
         <button 
           className="quick-action-btn"
@@ -220,19 +290,76 @@ export default function Header({
                   </div>
                 </div>
               ))}
+
+              <div 
+                onClick={() => {
+                  setShowRoleMenu(false);
+                  if (onNavigateTab) onNavigateTab('access_control');
+                }}
+                style={{
+                  marginTop: '4px',
+                  padding: '9px 12px',
+                  backgroundColor: '#fffdf5',
+                  borderTop: '1px solid #fef3c7',
+                  borderRadius: '0 0 10px 10px',
+                  fontSize: '11.5px',
+                  fontWeight: 700,
+                  color: '#b45309',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <span>Kelola Pengguna & Hak Akses</span>
+                <ExternalLink size={13} />
+              </div>
             </div>
           )}
         </div>
 
-        {/* User Profile */}
-        <div className="user-profile">
-          <div className="user-avatar">
+        {/* User Profile (Clickable!) */}
+        <div 
+          className="user-profile"
+          onClick={() => onOpenAccountModal && onOpenAccountModal()}
+          style={{ 
+            cursor: 'pointer',
+            padding: '4px 10px',
+            borderRadius: '12px',
+            transition: 'background-color 0.15s ease',
+            border: '1px solid transparent'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = '#f1f5f9';
+            e.currentTarget.style.borderColor = '#cbd5e1';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'transparent';
+            e.currentTarget.style.borderColor = 'transparent';
+          }}
+          title="Klik untuk membuka Detail Akun Pimpinan & Sesi Aktif"
+        >
+          <div className="user-avatar" style={{ position: 'relative' }}>
             PG
+            <span 
+              style={{
+                position: 'absolute',
+                bottom: '-2px',
+                right: '-2px',
+                width: '10px',
+                height: '10px',
+                borderRadius: '50%',
+                backgroundColor: '#10b981',
+                border: '2px solid #ffffff'
+              }}
+              title="Sesi Online Aktif"
+            />
           </div>
           <div className="user-info">
             <span className="user-name">Ir. Panggah Susanto, M.M.</span>
             <span className="user-role">Ketua DPD I GOLKAR Jateng</span>
           </div>
+          <ChevronDown size={14} color="#64748b" style={{ marginLeft: '4px', flexShrink: 0 }} />
         </div>
       </div>
     </header>

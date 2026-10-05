@@ -1056,3 +1056,38 @@ body {
   0% { top: 5%; }
   100% { top: 92%; }
 }
+
+/* =========================================================
+   PRINT STYLING (FOR EXECUTIVE BRIEFINGS & REPORTS)
+   ========================================================= */
+@media print {
+  .sidebar,
+  .top-header,
+  .system-status-pill,
+  button,
+  .page-header select {
+    display: none !important;
+  }
+
+  .main-wrapper {
+    margin-left: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  .content-viewport {
+    padding: 10px !important;
+  }
+
+  .enterprise-panel {
+    box-shadow: none !important;
+    border: 1px solid #cbd5e1 !important;
+    break-inside: avoid;
+  }
+
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+}
+

@@ -12,11 +12,14 @@ import BoardActivityModule from './components/BoardActivityModule';
 import SocialMonitoringModule from './components/SocialMonitoringModule';
 import MemberOrganizationModule from './components/MemberOrganizationModule';
 import AuditAndSecurityModule from './components/AuditAndSecurityModule';
+import ExecutiveReportsModule from './components/ExecutiveReportsModule';
+import SystemAccessModule from './components/SystemAccessModule';
 
 import KtpScannerModal from './components/KtpScannerModal';
 import C1ScannerModal from './components/C1ScannerModal';
 import QrCheckInModal from './components/QrCheckInModal';
 import ExportModal from './components/ExportModal';
+import AccountProfileModal from './components/AccountProfileModal';
 
 import { INITIAL_YOUTH_RECORDS, KAB_KOTA_JATENG, EVENTS_DATA } from './data/mockData';
 
@@ -30,6 +33,7 @@ export default function App() {
   const [isC1ModalOpen, setIsC1ModalOpen] = useState(false);
   const [isQrModalOpen, setIsQrModalOpen] = useState(false);
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
+  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
 
   // Cross-module states
   const [selectedKtaPerson, setSelectedKtaPerson] = useState(null);
@@ -58,17 +62,21 @@ export default function App() {
         collapsed={sidebarCollapsed}
         setCollapsed={setSidebarCollapsed}
         youthCount={youthRecords.length}
+        onOpenAccountModal={() => setIsAccountModalOpen(true)}
       />
 
       {/* Main Content Area */}
       <div className={`main-wrapper ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
         {/* Top Header */}
         <Header 
+          currentTab={currentTab}
+          onNavigateTab={(tab) => setCurrentTab(tab)}
           activeRole={activeRole}
           setActiveRole={setActiveRole}
           onOpenKtpModal={() => setIsKtpModalOpen(true)}
           onOpenQrModal={() => setIsQrModalOpen(true)}
           onOpenExportModal={() => setIsExportModalOpen(true)}
+          onOpenAccountModal={() => setIsAccountModalOpen(true)}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
         />
@@ -148,6 +156,10 @@ export default function App() {
             />
           )}
 
+          {currentTab === 'executive_reports' && (
+            <ExecutiveReportsModule />
+          )}
+
           {currentTab === 'webgis' && (
             <WebGisModule 
               onNavigateYouth={() => setCurrentTab('youth')}
@@ -199,6 +211,10 @@ export default function App() {
             <SocialMonitoringModule />
           )}
 
+          {currentTab === 'access_control' && (
+            <SystemAccessModule />
+          )}
+
           {currentTab === 'audit' && (
             <AuditAndSecurityModule 
               onOpenExportModal={() => setIsExportModalOpen(true)}
@@ -229,6 +245,13 @@ export default function App() {
         isOpen={isExportModalOpen}
         onClose={() => setIsExportModalOpen(false)}
         activeRole={activeRole}
+      />
+
+      <AccountProfileModal 
+        isOpen={isAccountModalOpen}
+        onClose={() => setIsAccountModalOpen(false)}
+        activeRole={activeRole}
+        onNavigateTab={(tab) => setCurrentTab(tab)}
       />
     </div>
   );
