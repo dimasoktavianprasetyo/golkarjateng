@@ -19,7 +19,8 @@ export default function AccountProfileModal({
   isOpen, 
   onClose, 
   activeRole, 
-  onNavigateTab 
+  onNavigateTab,
+  onLogout 
 }) {
   if (!isOpen) return null;
 
@@ -230,13 +231,48 @@ export default function AccountProfileModal({
               </button>
             </div>
 
-            <button
-              className="btn-secondary"
-              onClick={onClose}
-              style={{ justifyContent: 'center', height: '36px', fontSize: '12px', backgroundColor: '#f8fafc' }}
-            >
-              Tutup Jendela
-            </button>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  if (onLogout) onLogout();
+                }}
+                style={{
+                  flex: 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px',
+                  height: '38px',
+                  borderRadius: '10px',
+                  border: '1px solid #fee2e2',
+                  backgroundColor: '#fef2f2',
+                  color: '#dc2626',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#fee2e2';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#fef2f2';
+                }}
+              >
+                <LogOut size={14} />
+                <span>Keluar (Logout)</span>
+              </button>
+
+              <button
+                className="btn-secondary"
+                onClick={onClose}
+                style={{ flex: 1, justifyContent: 'center', height: '38px', fontSize: '12px', backgroundColor: '#f8fafc' }}
+              >
+                Tutup Jendela
+              </button>
+            </div>
           </div>
         </div>
       </div>

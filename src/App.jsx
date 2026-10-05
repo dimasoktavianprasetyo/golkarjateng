@@ -20,10 +20,12 @@ import C1ScannerModal from './components/C1ScannerModal';
 import QrCheckInModal from './components/QrCheckInModal';
 import ExportModal from './components/ExportModal';
 import AccountProfileModal from './components/AccountProfileModal';
+import LoginPage from './components/LoginPage';
 
 import { INITIAL_YOUTH_RECORDS, KAB_KOTA_JATENG, EVENTS_DATA } from './data/mockData';
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentTab, setCurrentTab] = useState('dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeRole, setActiveRole] = useState('super_admin');
@@ -52,6 +54,17 @@ export default function App() {
     setSelectedKtaPerson(person);
     setCurrentTab('kta');
   };
+
+  if (!isAuthenticated) {
+    return (
+      <LoginPage 
+        onLogin={(role) => {
+          if (role) setActiveRole(role);
+          setIsAuthenticated(true);
+        }} 
+      />
+    );
+  }
 
   return (
     <div className="app-layout">
@@ -252,6 +265,10 @@ export default function App() {
         onClose={() => setIsAccountModalOpen(false)}
         activeRole={activeRole}
         onNavigateTab={(tab) => setCurrentTab(tab)}
+        onLogout={() => {
+          setIsAccountModalOpen(false);
+          setIsAuthenticated(false);
+        }}
       />
     </div>
   );
