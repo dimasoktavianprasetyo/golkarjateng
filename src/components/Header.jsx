@@ -45,11 +45,11 @@ export default function Header({
   }, []);
 
   const roles = [
-    { id: 'super_admin', label: 'Super Admin — DPD I Jawa Tengah', scope: 'Seluruh 35 Kab/Kota' },
-    { id: 'dpd_semarang', label: 'DPD II Kota Semarang', scope: 'Wilayah Kota Semarang' },
-    { id: 'dpd_banyumas', label: 'DPD II Kab. Banyumas', scope: 'Wilayah Banyumas & Dapil VIII' },
-    { id: 'operator', label: 'Operator / Enumerator Pemuda', scope: 'Data Entry & Assisted Verif' },
-    { id: 'saksi_tps', label: 'Saksi TPS Lapangan (BSNPG)', scope: 'Upload C1 Plano & Rekapitulasi' }
+    { id: 'super_admin', label: 'Super Admin — DPD I Jawa Tengah', short: 'Super Admin', scope: 'Seluruh 35 Kab/Kota' },
+    { id: 'dpd_semarang', label: 'DPD II Kota Semarang', short: 'Kota Semarang', scope: 'Wilayah Kota Semarang' },
+    { id: 'dpd_banyumas', label: 'DPD II Kab. Banyumas', short: 'Kab. Banyumas', scope: 'Wilayah Banyumas & Dapil VIII' },
+    { id: 'operator', label: 'Operator / Enumerator Pemuda', short: 'Operator', scope: 'Data Entry & Assisted Verif' },
+    { id: 'saksi_tps', label: 'Saksi TPS Lapangan (BSNPG)', short: 'Saksi TPS', scope: 'Upload C1 Plano & Rekapitulasi' }
   ];
 
   const currentRoleObj = roles.find(r => r.id === activeRole) || roles[0];
@@ -59,11 +59,11 @@ export default function Header({
       {/* Left: Global Search Omnibar */}
       <div className="header-left">
         <div className="search-box">
-          <Search size={16} className="text-slate-400" />
+          <Search size={15} className="text-slate-400" style={{ flexShrink: 0 }} />
           <input
             type="text"
             className="search-input"
-            placeholder="Cari NIK, Nama Pemuda, TPS, Kab/Kota, Event..."
+            placeholder="Cari NIK, Pemuda, TPS, Kab/Kota..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -71,8 +71,8 @@ export default function Header({
         </div>
 
         {/* Live Clock & Server Pulse */}
-        <div className="system-status-pill" style={{ height: '36px' }}>
-          <Clock size={14} className="text-slate-500" />
+        <div className="system-status-pill">
+          <Clock size={13} className="text-slate-500" style={{ flexShrink: 0 }} />
           <span>{currentTime}</span>
         </div>
       </div>
@@ -171,10 +171,10 @@ export default function Header({
             onClick={() => setShowRoleMenu(!showRoleMenu)}
             title="Ganti Mode Hak Akses (RBAC Simulator)"
           >
-            <ShieldCheck size={14} color="#d97706" />
+            <ShieldCheck size={14} color="#d97706" style={{ flexShrink: 0 }} />
             <span>Role:</span>
-            <span className="role-badge">{currentRoleObj.label.split('—')[0].trim()}</span>
-            <ChevronDown size={14} />
+            <span className="role-badge">{currentRoleObj.short || currentRoleObj.label}</span>
+            <ChevronDown size={13} style={{ flexShrink: 0 }} />
           </div>
 
           {showRoleMenu && (

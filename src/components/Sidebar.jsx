@@ -106,8 +106,8 @@ export default function Sidebar({
                     onClick={() => setCurrentTab(item.id)}
                     title={collapsed ? item.label : undefined}
                   >
-                    <IconComponent size={18} strokeWidth={isActive ? 2.4 : 1.8} />
-                    {!collapsed && <span>{item.label}</span>}
+                    <IconComponent size={18} strokeWidth={isActive ? 2.4 : 1.8} style={{ flexShrink: 0 }} />
+                    {!collapsed && <span className="nav-item-label">{item.label}</span>}
                     {!collapsed && item.badge && (
                       <span className="nav-badge">{item.badge}</span>
                     )}
