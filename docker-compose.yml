@@ -1,0 +1,101 @@
+version: '3.8'
+
+services:
+  # ============================================================================
+  # 1. DATABASE LAYER: PostgreSQL 16 + PostGIS 3.4 (WebGIS & Core DB)
+  # ============================================================================
+  postgres:
+    image: postgis/postgis:16-3.4-alpine
+    container_name: golkar-db-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-db_golkarjateng_prod}
+      POSTGRES_USER: ${POSTGRES_USER:-golkar_app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-GolkarJatengSuperSecret2026!}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U golkar_app -d db_golkarjateng_prod"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - golkar-internal-net
+
+  # ============================================================================
+  # 2. IN-MEMORY CACHE & MESSAGE BROKER: Redis 7.2
+  # ============================================================================
+  redis:
+    image: redis:7.2.5-alpine
+    container_name: golkar-cache-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-GolkarRedisPass2026!}
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-GolkarRedisPass2026!}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - golkar-internal-net
+
+  # ============================================================================
+  # 3. BACKEND API GATEWAY: Golang (Fiber / Gin) & WebSocket Hub
+  # ============================================================================
+  api-gateway:
+    image: golkarjateng/api-gateway:v2.4.1
+    container_name: golkar-api-gateway
+    restart: unless-stopped
+    environment:
+      APP_ENV: production
+      PORT: 4000
+      DATABASE_URL: postgres://golkar_app:${POSTGRES_PASSWORD:-GolkarJatengSuperSecret2026!}@postgres:5432/${POSTGRES_DB:-db_golkarjateng_prod}?sslmode=disable
+      REDIS_URL: redis://:${REDIS_PASSWORD:-GolkarRedisPass2026!}@redis:6379/0
+      WA_VERIFY_TOKEN: ${WA_VERIFY_TOKEN:-GOLKAR_JATENG_WA_SECRET_2026}
+      JWT_SECRET: ${JWT_SECRET:-GolkarJatengJwtSecureSecretKey2026}
+    ports:
+      - "0.0.0.0:4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - golkar-internal-net
+      - golkar-public-net
+
+  # ============================================================================
+  # 4. FRONTEND COMMAND CENTER: React + Vite (Nginx Server)
+  # ============================================================================
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: golkar-frontend
+    restart: unless-stopped
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+    depends_on:
+      - api-gateway
+    networks:
+      - golkar-public-net
+
+networks:
+  golkar-internal-net:
+    driver: bridge
+    internal: true
+  golkar-public-net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
