@@ -1,0 +1,581 @@
+=== PAGE 1 ===
+PRD — GOLKAR JATENG YOUTH & 
+DIGITAL COMMAND CENTER 
+Product Name: GOLKAR JATENG YOUTH & DIGITAL COMMAND CENTER 
+ Platform: Web-Based + Mobile Application 
+ Primary Users: DPD Provinsi, DPD Kabupaten/Kota, Administrator, Anggota Dewan, 
+Pengurus/Kader, Koordinator Lapangan, Saksi TPS 
+ Objective: Membangun satu platform terintegrasi untuk digitalisasi pendataan kegiatan, 
+event, keanggotaan, pendataan generasi muda, pelaporan operasional, serta monitoring 
+aktivitas organisasi secara terpusat dan real-time. 
+ 
+1. DATA MANAGEMENT & EVENT MANAGEMENT 
+SYSTEM 
+1.1 Event Management 
+Sistem menyediakan modul untuk membuat, mengelola, dan melakukan registrasi peserta 
+event secara digital. 
+Fitur: 
+● Create & manage event. 
+● Informasi event: 
+○ nama event 
+○ tanggal & waktu 
+○ lokasi 
+○ kapasitas peserta 
+○ penyelenggara 
+○ PIC 
+○ status event 
+● Registrasi peserta melalui web/mobile. 
+● Quick Registration menggunakan scan KTP. 
+● Data peserta dapat dimasukkan: 
+○ oleh peserta sendiri; atau 
+○ oleh petugas/operator yang mendaftarkan orang lain. 
+● Setelah KTP dipindai, sistem melakukan ekstraksi data secara otomatis. 
+● Operator dapat melakukan verifikasi dan koreksi data sebelum menyimpan. 
+● QR Code peserta. 
+● QR Code digunakan untuk: 
+○ check-in event 
+○ validasi kehadiran 
+
+=== PAGE 2 ===
+○ pencatatan waktu kedatangan. 
+● Dashboard jumlah: 
+○ peserta terdaftar 
+○ peserta hadir 
+○ belum hadir 
+○ kapasitas event. 
+1.2 KTP Scanner & Data Extraction 
+Flow: 
+Scan KTP → OCR → Extract Data → Verification → Save → Generate 
+Participant ID 
+Data yang dapat diekstraksi antara lain: 
+● NIK 
+● Nama 
+● Tempat/tanggal lahir 
+● Jenis kelamin 
+● Alamat 
+● Kelurahan 
+● Kecamatan 
+● Kabupaten/Kota 
+● Provinsi 
+Sistem melakukan basic duplicate detection berdasarkan NIK agar satu orang tidak 
+tercatat berkali-kali dalam database yang sama. 
+ 
+2. YOUTH DATA MANAGEMENT 
+MODULE 
+Modul khusus untuk pendataan anggota/peserta muda secara administratif dan 
+organisasi. 
+2.1 Youth Registration 
+Pendataan dapat dilakukan hanya dengan scan KTP, kemudian data otomatis masuk ke 
+sistem. 
+Flow: 
+Scan KTP → OCR → Data Verification → Youth Database → Assign Region 
+→ Assign Enumerator → Record 
+
+=== PAGE 3 ===
+Field tambahan: 
+● Status pemuda 
+● Area/wilayah 
+● Organisasi/unit 
+● Status keanggotaan 
+● Event yang pernah diikuti 
+● Tanggal registrasi 
+● Enumerator/inputter 
+● Status verifikasi 
+● Keterangan. 
+2.2 Self Registration & Assisted Registration 
+Terdapat dua metode: 
+A. Self Registration 
+Anak muda melakukan registrasi sendiri: 
+Scan KTP → Verify Data → Submit 
+B. Assisted Registration 
+Kader/operator melakukan pendataan orang lain: 
+Operator Login → Scan KTP → Verify → Submit 
+Sistem otomatis mencatat: 
+"Data ini dimasukkan oleh siapa?" 
+Sehingga setiap record memiliki audit trail. 
+Contoh: 
+Data Informasi 
+Nama Ahmad 
+Wilayah Kota X 
+Registered By Budi 
+Registration Date 01/10/2026 
+Method Assisted Registration 
+Status Verified 
+ 
+
+=== PAGE 4 ===
+3. YOUTH CONTRIBUTOR / 
+ENUMERATOR MANAGEMENT 
+Modul ini digunakan untuk mengetahui siapa yang melakukan pendataan, berapa data 
+yang berhasil dimasukkan, serta status pencapaiannya. 
+3.1 Contributor Dashboard 
+Setiap kader/operator memiliki dashboard: 
+● Total data dimasukkan 
+● Data berhasil diverifikasi 
+● Data pending 
+● Data rejected/duplicate 
+● Target 
+● Achievement 
+● Remaining target 
+● Achievement percentage 
+● Ranking internal berdasarkan jumlah data administratif yang tervalidasi 
+3.2 Target & Quota Management 
+Admin dapat membuat target berdasarkan: 
+● Provinsi 
+● Kabupaten/Kota 
+● Kecamatan 
+● Unit organisasi 
+● Periode 
+● User/operator 
+Contoh: 
+Operator Target Achieved Progress Status 
+Operator A 500 500 100% Achieved 
+Operator B 500 375 75% In Progress 
+Operator C 500 120 24% In Progress 
+3.3 Leaderboard 
+Dashboard internal menampilkan: 
+Top Contributors 
+
+=== PAGE 5 ===
+1. Contributor A — 1.250 verified records 
+2. Contributor B — 1.120 verified records 
+3. Contributor C — 980 verified records 
+Leaderboard dapat difilter berdasarkan: 
+● periode 
+● provinsi 
+● kabupaten/kota 
+● unit 
+● status achievement. 
+Untuk menjaga akurasi, ranking sebaiknya dihitung berdasarkan data yang 
+berhasil diverifikasi, bukan sekadar jumlah scan. 
+ 
+4. KTA MANAGEMENT SYSTEM 
+Data yang sudah memenuhi persyaratan keanggotaan dapat diproses menjadi KTA secara 
+digital. 
+Flow 
+KTP Scan → Data Validation → Membership Verification → KTA 
+Generation → PDF → Delivery / Print 
+Fitur: 
+● Generate KTA otomatis. 
+● Nomor anggota otomatis. 
+● Foto dapat berasal dari data yang tersedia/diinput sesuai proses verifikasi. 
+● Generate KTA dalam format PDF. 
+● QR Code pada KTA. 
+● Download KTA. 
+● Print KTA. 
+● Riwayat penerbitan KTA. 
+● Status: 
+○ Draft 
+○ Submitted 
+○ Verified 
+○ Generated 
+○ Delivered 
+○ Printed. 
+Digital Delivery 
+
+=== PAGE 6 ===
+Setelah KTA diterbitkan, sistem dapat mengirimkan notifikasi atau dokumen KTA melalui 
+kanal komunikasi yang terhubung, termasuk WhatsApp apabila integrasi resmi tersedia 
+dan penerima telah memberikan persetujuan yang diperlukan. 
+ 
+5. GEOGRAPHICAL INFORMATION 
+SYSTEM — WEBGIS 
+Seluruh data yang memiliki informasi wilayah dapat divisualisasikan melalui WebGIS. 
+Fitur: 
+● Peta Provinsi 
+● Kabupaten/Kota 
+● Kecamatan 
+● Kelurahan/Desa 
+● Distribution map 
+● Cluster 
+● Heatmap 
+● Filter wilayah 
+● Filter event 
+● Filter status data 
+● Filter status membership 
+● Filter periode. 
+Youth Distribution 
+Dashboard dapat menampilkan distribusi administratif generasi muda berdasarkan wilayah. 
+Contoh: 
+Jawa Tengah → Kota A → Kecamatan B → Kelurahan C → 1.245 registered 
+youth records 
+Data ditampilkan secara agregat untuk mengurangi risiko penggunaan informasi pribadi 
+secara berlebihan. 
+ 
+6. MEMBER & ORGANIZATION 
+MANAGEMENT 
+
+=== PAGE 7 ===
+Centralized database untuk pengelolaan data organisasi. 
+Fitur: 
+● Member database 
+● Member profile 
+● KTA status 
+● Registration history 
+● Event participation 
+● Organizational unit 
+● Region 
+● Verification status 
+● Membership status 
+● Document management 
+● Audit trail. 
+Hierarchical Access 
+DPD Provinsi 
+● View seluruh wilayah yang menjadi kewenangannya. 
+● Manage Kabupaten/Kota. 
+● Regional dashboard. 
+DPD Kabupaten/Kota 
+● Hanya dapat melihat data wilayahnya. 
+Operator 
+● Hanya dapat memasukkan/mengelola data yang diberikan kepadanya. 
+Super Admin 
+● Full system access. 
+ 
+7. DATA IMPORT & EXPORT 
+Import 
+● Excel 
+● CSV 
+● Bulk upload. 
+Sistem melakukan: 
+
+=== PAGE 8 ===
+Upload → Data Mapping → Validation → Duplicate Check → Import 
+Export 
+● Excel 
+● CSV 
+● PDF report. 
+Export dibatasi berdasarkan hak akses user. 
+ 
+8. MEMBER / EVENT CHECK-IN 
+QR-based attendance system. 
+Flow 
+Participant Registration → QR Generated → Scan QR → Check-in → 
+Timestamp → Attendance Database 
+Dashboard: 
+● Registered 
+● Checked-in 
+● Not checked-in 
+● Check-in time 
+● Event attendance rate. 
+ 
+9. BOARD MEMBER ACTIVITY 
+REPORTING 
+Modul untuk anggota dewan/pengurus melaporkan aktivitas organisasi secara digital. 
+Fitur: 
+● Create activity report 
+● Upload documentation 
+● Foto kegiatan 
+● Lokasi kegiatan 
+● Tanggal 
+● Jumlah peserta 
+
+=== PAGE 9 ===
+● Kategori kegiatan 
+● PIC 
+● Status verification. 
+Workflow 
+Submit → Verification → Approved / Revision → Archive 
+Dashboard dapat menampilkan aktivitas berdasarkan wilayah dan periode. 
+ 
+10. SOCIAL MEDIA MANAGEMENT 
+Modul administrasi pengelolaan akun dan konten organisasi. 
+Content Management 
+● Content calendar 
+● Draft post 
+● Approval workflow 
+● Media library 
+● Caption management 
+● Publishing schedule 
+● Multi-account management apabila API platform memungkinkan. 
+Performance Dashboard 
+Mengambil metrik yang tersedia dari platform terhubung, seperti: 
+● Reach 
+● Impressions 
+● Likes 
+● Comments 
+● Shares 
+● Saves 
+● Followers 
+● Growth. 
+Reporting 
+● Daily report 
+● Weekly report 
+● Monthly report 
+● Regional report 
+● PDF export. 
+
+=== PAGE 10 ===
+ 
+11. SOCIAL MEDIA MONITORING & 
+ISSUE MONITORING 
+Sistem dapat melakukan monitoring terhadap percakapan publik yang tersedia secara legal 
+melalui API/data source yang diperbolehkan. 
+Analysis 
+● Positive 
+● Neutral 
+● Negative 
+● Topic/category 
+● Geographic distribution apabila data wilayah tersedia secara sah. 
+Issue Detection 
+Sistem mendeteksi: 
+● peningkatan volume pembicaraan 
+● topik yang sedang berkembang 
+● perubahan sentiment 
+● engagement anomaly. 
+Notification 
+Alert dapat dikirim kepada PIC internal untuk monitoring dan respons administratif, 
+sesuai hak akses dan kebijakan organisasi. 
+ 
+12. TPS / FIELD OPERATIONS MOBILE 
+APPLICATION 
+Aplikasi mobile untuk kebutuhan operasional saksi/petugas lapangan. 
+12.1 TPS Database 
+Data: 
+● TPS 
+● Kelurahan 
+
+=== PAGE 11 ===
+● Kecamatan 
+● Kabupaten/Kota 
+● Provinsi 
+● Assigned personnel 
+● Status personnel 
+● Contact information 
+● Attendance/status. 
+12.2 C1 Document Capture 
+Saksi dapat: 
+Open App → Select TPS → Take Photo C1 → Upload → OCR → Verification 
+Sistem menyimpan: 
+● foto asli 
+● hasil OCR 
+● timestamp 
+● TPS 
+● user yang mengirim. 
+12.3 OCR 
+OCR mengekstraksi data dari dokumen yang difoto untuk mengurangi kebutuhan input 
+manual. 
+Hasil OCR tetap dapat dikoreksi oleh operator sebelum dianggap valid. 
+12.4 Field Status Dashboard 
+Dashboard menampilkan: 
+● TPS registered 
+● Personnel assigned 
+● Personnel active 
+● Document submitted 
+● Document pending 
+● Document verified. 
+ 
+13. REAL-TIME OPERATIONAL 
+DASHBOARD 
+Central dashboard untuk management. 
+
+=== PAGE 12 ===
+KPI: 
+Organization 
+● Total members 
+● Verified members 
+● New registrations 
+● KTA generated 
+● Event registrations 
+Youth 
+● Total youth records 
+● Verified records 
+● Registration progress 
+● Contributor achievement 
+● Regional distribution 
+Event 
+● Active events 
+● Registration 
+● Attendance 
+● Check-in 
+Field 
+● TPS coverage 
+● Submitted documents 
+● Pending documents 
+● Verified documents. 
+ 
+14. NOTIFICATION ENGINE 
+Centralized notification engine untuk kebutuhan administratif. 
+Channel: 
+● WhatsApp integration 
+● Email 
+● In-app notification 
+● Push notification. 
+Automated Notification 
+
+=== PAGE 13 ===
+Contoh: 
+● Event registration confirmation 
+● Event reminder 
+● Check-in confirmation 
+● KTA availability notification 
+● Data verification notification 
+● Operator target reminder 
+● Field personnel reminder 
+● Document submission notification. 
+ 
+15. ROLE & ACCESS MANAGEMENT 
+Role 
+Role Access 
+Super Admin Full system 
+DPD Provinsi Regional-wide 
+DPD Kab/Kota Local region 
+Admin Event Event management 
+Membership Admin Membership/KTA 
+Operator Data entry 
+Contributor Own contribution dashboard 
+Field Personnel Mobile field module 
+Management Dashboard & reporting 
+ 
+16. AUDIT TRAIL 
+Karena sistem menangani data organisasi dan data identitas, setiap aktivitas penting dicatat. 
+Audit trail mencatat: 
+● siapa yang membuat data 
+● siapa yang mengubah data 
+● siapa yang melakukan verification 
+
+=== PAGE 14 ===
+● kapan perubahan dilakukan 
+● data apa yang berubah 
+● siapa yang melakukan export 
+● aktivitas login 
+● aktivitas administrasi KTA. 
+ 
+17. REPORTING ENGINE 
+Report 
+● Membership Report 
+● Youth Registration Report 
+● Event Report 
+● Attendance Report 
+● KTA Report 
+● Contributor Achievement Report 
+● Regional Report 
+● Field Operations Report 
+● Social Media Report 
+● System Activity Report. 
+Output 
+Excel / PDF / Dashboard 
+ 
+18. END-TO-END BUSINESS FLOW 
+Youth → KTA 
+SCAN KTP 
+   ↓ 
+OCR 
+   ↓ 
+DATA VALIDATION 
+   ↓ 
+DUPLICATE CHECK 
+   ↓ 
+YOUTH DATABASE 
+   ↓ 
+MEMBERSHIP VERIFICATION 
+   ↓ 
+
+=== PAGE 15 ===
+KTA GENERATION 
+   ↓ 
+PDF KTA 
+   ↓ 
+DIGITAL DELIVERY / PRINT 
+ 
+Event 
+CREATE EVENT 
+   ↓ 
+REGISTRATION 
+   ↓ 
+SCAN KTP 
+   ↓ 
+PARTICIPANT DATABASE 
+   ↓ 
+QR CODE 
+   ↓ 
+EVENT CHECK-IN 
+   ↓ 
+ATTENDANCE DATABASE 
+   ↓ 
+EVENT REPORT 
+ 
+Contributor 
+OPERATOR LOGIN 
+   ↓ 
+SCAN KTP 
+   ↓ 
+SUBMIT DATA 
+   ↓ 
+VERIFICATION 
+   ↓ 
+VALID RECORD 
+   ↓ 
+CONTRIBUTOR ACHIEVEMENT 
+   ↓ 
+TARGET PROGRESS 
+   ↓ 
+LEADERBOARD 
+ 
+Field Operations 
+ASSIGN TPS 
+   ↓ 
+
+=== PAGE 16 ===
+ASSIGN PERSONNEL 
+   ↓ 
+MOBILE APP 
+   ↓ 
+CAPTURE DOCUMENT 
+   ↓ 
+OCR 
+   ↓ 
+UPLOAD 
+   ↓ 
+VERIFICATION 
+   ↓ 
+CENTRAL DASHBOARD 
+ 
+ 
+19. HIGH-LEVEL SYSTEM ARCHITECTURE 
+                   G-CORE CENTRAL PLATFORM 
+                             │ 
+       ┌─────────────────────┼─────────────────────┐ 
+       │                     │                     │ 
+   WEB PLATFORM         MOBILE APP            API LAYER 
+       │                     │                     │ 
+       └─────────────────────┼─────────────────────┘ 
+                             │ 
+                    CENTRAL DATABASE 
+                             │ 
+       ┌─────────────┬───────┼────────┬─────────────┐ 
+       │             │       │        │             │ 
+    EVENT         MEMBER    YOUTH    KTA         FIELD 
+   SYSTEM         SYSTEM    DATA    SYSTEM      OPERATIONS 
+       │             │       │        │             │ 
+       └─────────────┴───────┼────────┴─────────────┘ 
+                             │ 
+                    REPORTING & WEBGIS 
+                             │ 
+                    MANAGEMENT DASHBOARD 
+ 
+Integrasi eksternal 
+● KTP/OCR engine 
+● WhatsApp Business/API resmi 
+● Social Media APIs 
+● Mapping/WebGIS provider 
+● Notification service 
+● Document/PDF generation service. 
+
+=== PAGE 17 ===
+ 
+20. SECURITY & DATA GOVERNANCE 
+Karena sistem memproses data identitas, desain final perlu memasukkan: 
+● Role-Based Access Control (RBAC) 
+● Encryption in transit 
+● Encryption at rest 
+● Audit trail 
+● Session management 
+● Backup & recovery 
+● Data retention policy 
+● Consent/notice mechanism sesuai konteks penggunaan data 
+● Pembatasan akses berdasarkan wilayah 
+● Pembatasan bulk export 
+● Logging aktivitas administrator 
+● Proteksi terhadap duplicate/fraudulent registration. 
+ 
+
