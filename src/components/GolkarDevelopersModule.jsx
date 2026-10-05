@@ -63,7 +63,7 @@ export default function GolkarDevelopersModule({ onNavigateTab }) {
       id: 2,
       sender: 'bot',
       time: '14:20',
-      text: '🟡 *DPD I PARTAI GOLKAR JAWA TENGAH*\n\nHalo *Ahmad Fauzi*,\nStatus KTA Digital Anda: *AKTIF (TERVERIFIKASI)*.\n\n• NIK: 337401******0001\n• Wilayah: DPD I Jawa Tengah\n• No KTA: 33.74.01.2026.08412\n\nUnduh e-KTA resmi ber-QR Code di portal pemenangan:\n👉 https://golkarjateng.vercel.app\n\n_Suara Golkar, Suara Rakyat!_'
+      text: '🟡 *DPD I PARTAI GOLKAR JAWA TENGAH*\n\nHalo *Ahmad Fauzi*,\nStatus KTA Digital Anda: *AKTIF (TERVERIFIKASI)*.\n\n• NIK: 337401******0001\n• Wilayah: DPD I Jawa Tengah\n• No KTA: 33.74.01.2026.08412\n\nUnduh e-KTA resmi ber-QR Code di portal pemenangan:\n👉 https://www.golkarjateng.com\n\n_Suara Golkar, Suara Rakyat!_'
     }
   ]);
 
@@ -299,7 +299,7 @@ export default function GolkarDevelopersModule({ onNavigateTab }) {
         category = 'kta_inquiry';
         badgeText = 'Cek KTA Digital';
         badgeColor = '#f59e0b';
-        autoReply = `🟡 *DPD I PARTAI GOLKAR JAWA TENGAH*\n\nHalo *${nameToSend}*,\nStatus KTA Digital Anda: *AKTIF (TERVERIFIKASI)*.\n\n• NIK: 337401******0001\n• Wilayah: DPD I Jawa Tengah\n• No KTA: 33.74.01.2026.08412\n\nUnduh e-KTA resmi ber-QR Code di portal pemenangan:\n👉 https://golkarjateng.vercel.app\n\n_Suara Golkar, Suara Rakyat!_`;
+        autoReply = `🟡 *DPD I PARTAI GOLKAR JAWA TENGAH*\n\nHalo *${nameToSend}*,\nStatus KTA Digital Anda: *AKTIF (TERVERIFIKASI)*.\n\n• NIK: 337401******0001\n• Wilayah: DPD I Jawa Tengah\n• No KTA: 33.74.01.2026.08412\n\nUnduh e-KTA resmi ber-QR Code di portal pemenangan:\n👉 https://www.golkarjateng.com\n\n_Suara Golkar, Suara Rakyat!_`;
       } else if (textUpper.includes('C1') || textUpper.includes('TPS')) {
         category = 'c1_plano';
         badgeText = 'Formulir C1 Plano';
@@ -310,7 +310,7 @@ export default function GolkarDevelopersModule({ onNavigateTab }) {
         category = 'youth_registration';
         badgeText = 'Registrasi Kader';
         badgeColor = '#0284c7';
-        autoReply = `🦁 *PENDAFTARAN PEMUDA & RELAWAN GOLKAR JATENG*\n\nSelamat bergabung! Untuk mendaftarkan diri sebagai kader muda Golkar Jawa Tengah:\n\n1. Siapkan foto KTP Anda\n2. Isi formulir digital di: https://golkarjateng.vercel.app\n3. Dapatkan KTA Digital & akses exclusive mentoring kepemimpinan.\n\nPertanyaan lebih lanjut? Ketik *BANTUAN*.`;
+        autoReply = `🦁 *PENDAFTARAN PEMUDA & RELAWAN GOLKAR JATENG*\n\nSelamat bergabung! Untuk mendaftarkan diri sebagai kader muda Golkar Jawa Tengah:\n\n1. Siapkan foto KTP Anda\n2. Isi formulir digital di: https://www.golkarjateng.com\n3. Dapatkan KTA Digital & akses exclusive mentoring kepemimpinan.\n\nPertanyaan lebih lanjut? Ketik *BANTUAN*.`;
       } else if (textUpper.includes('AGENDA') || textUpper.includes('EVENT')) {
         category = 'events';
         badgeText = 'Jadwal Agenda';
@@ -367,10 +367,10 @@ export default function GolkarDevelopersModule({ onNavigateTab }) {
 
   const codeSnippets = {
     curl: `# 1. Uji Verifikasi Webhook (Handshake GET)
-curl -X GET "https://golkarjateng.vercel.app/api/whatsapp-webhook?hub.mode=subscribe&hub.verify_token=GOLKAR_JATENG_WA_SECRET_2026&hub.challenge=1158201444"
+curl -X GET "https://www.golkarjateng.com/api/whatsapp-webhook?hub.mode=subscribe&hub.verify_token=GOLKAR_JATENG_WA_SECRET_2026&hub.challenge=1158201444"
 
 # 2. Uji Kirim Event Pesan Masuk (Inbound POST)
-curl -X POST "https://golkarjateng.vercel.app/api/whatsapp-webhook" \\
+curl -X POST "https://www.golkarjateng.com/api/whatsapp-webhook" \\
   -H "Content-Type: application/json" \\
   -d '{
     "object": "whatsapp_business_account",
@@ -794,6 +794,26 @@ async def handle_incoming_message(request: Request):
                 </div>
                 <div style={{ fontSize: '11px', color: '#64748b', fontFamily: 'monospace', marginTop: '2px' }}>
                   Linux 6.8.0-45-generic
+                </div>
+              </div>
+
+              <div style={{ padding: '14px', borderRadius: '10px', backgroundColor: '#fffdf5', border: '1px solid #fef3c7' }}>
+                <div style={{ fontSize: '11px', color: '#b45309', fontWeight: 600 }}>Target Domain & Cloudflare</div>
+                <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0f172a', fontFamily: 'monospace', marginTop: '4px' }}>
+                  www.golkarjateng.com
+                </div>
+                <div style={{ fontSize: '11px', color: '#f59e0b', fontWeight: 700, marginTop: '2px' }}>
+                  Cloudflare WAF · Anti-DDoS · DNSSEC
+                </div>
+              </div>
+
+              <div style={{ padding: '14px', borderRadius: '10px', backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0' }}>
+                <div style={{ fontSize: '11px', color: '#166534', fontWeight: 600 }}>Web Server Ingress</div>
+                <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0f172a', fontFamily: 'monospace', marginTop: '4px' }}>
+                  Caddy v2 / Traefik v3
+                </div>
+                <div style={{ fontSize: '11px', color: '#15803d', fontWeight: 700, marginTop: '2px' }}>
+                  HTTP/3 (QUIC) over UDP · Zero Inbound Ports
                 </div>
               </div>
             </div>
@@ -1284,7 +1304,7 @@ async def handle_incoming_message(request: Request):
                     <input 
                       type="text" 
                       readOnly 
-                      value="https://golkarjateng.vercel.app/api/whatsapp-webhook"
+                      value="https://www.golkarjateng.com/api/whatsapp-webhook"
                       style={{
                         flex: 1,
                         height: '40px',
@@ -1301,7 +1321,7 @@ async def handle_incoming_message(request: Request):
                     <button
                       type="button"
                       className="btn-secondary"
-                      onClick={() => handleCopy('https://golkarjateng.vercel.app/api/whatsapp-webhook', 'url')}
+                      onClick={() => handleCopy('https://www.golkarjateng.com/api/whatsapp-webhook', 'url')}
                       style={{ height: '40px', padding: '0 14px', fontSize: '12px', whiteSpace: 'nowrap' }}
                     >
                       {copiedKey === 'url' ? <Check size={14} color="#16a34a" /> : <Copy size={14} />}

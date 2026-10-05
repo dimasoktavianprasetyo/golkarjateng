@@ -1,0 +1,64 @@
+# ==============================================================================
+# 🟡 GOLKAR JATENG — PRODUCTION CADDY CONFIGURATION (HTTP/3 QUIC & REVERSE PROXY)
+# Domain: www.golkarjateng.com / golkarjateng.com
+# ==============================================================================
+
+{
+    # Global options
+    email devops@golkarjateng.or.id
+    admin off
+}
+
+# 1. Main Production Domain
+www.golkarjateng.com, golkarjateng.com {
+    # Automatic HTTP/3 (QUIC) over UDP and Zstandard/Gzip compression
+    encode zstd gzip
+
+    # Enterprise Security Headers
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "geolocation=(self), camera=(), microphone=()"
+    }
+
+    # API Gateway Reverse Proxy (Go Fiber / Gin)
+    handle /api/* {
+        reverse_proxy localhost:4000 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+
+    # Real-Time WebSocket Hub (Tabulasi C1 & Alert Feeds)
+    handle /ws/* {
+        reverse_proxy localhost:4000 {
+            header_up Upgrade {>Upgrade}
+            header_up Connection "Upgrade"
+        }
+    }
+
+    # Frontend SPA (React + Vite static assets)
+    handle {
+        root * /var/www/golkarjateng/dist
+        try_files {path} /index.html
+        file_server
+    }
+}
+
+# 2. Dedicated API Gateway Subdomain
+api.golkarjateng.com {
+    encode zstd gzip
+
+    header {
+        Access-Control-Allow-Origin "https://www.golkarjateng.com"
+        Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+        Access-Control-Allow-Headers "Content-Type, Authorization, X-Hub-Signature-256"
+    }
+
+    reverse_proxy localhost:4000
+}
