@@ -506,6 +506,9 @@ body {
 .content-viewport {
   padding: 24px 28px 48px;
   flex: 1;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Page Header */
@@ -749,6 +752,23 @@ body {
   box-shadow: var(--shadow-card);
   padding: 24px;
   margin-bottom: 24px;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.dev-portal-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(310px, 350px);
+  gap: 20px;
+  width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 1240px) {
+  .dev-portal-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .panel-header {
