@@ -24,6 +24,16 @@ www.golkarjateng.com, golkarjateng.com {
         Permissions-Policy "geolocation=(self), camera=(), microphone=()"
     }
 
+    # GraphQL API Endpoint Reverse Proxy (Go gqlgen)
+    handle /graphql* {
+        reverse_proxy localhost:4000 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+
     # API Gateway Reverse Proxy (Go Fiber / Gin)
     handle /api/* {
         reverse_proxy localhost:4000 {

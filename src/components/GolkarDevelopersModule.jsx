@@ -443,7 +443,47 @@ async def verify_handshake(request: Request):
 async def handle_incoming_message(request: Request):
     payload = await request.json()
     # Process C1 Plano upload, KTA inquiry or registration
-    return {"status": "success", "event": "processed"}`
+    return {"status": "success", "event": "processed"}`,
+
+    graphql: `# GraphQL Schema Query & Real-time Subscription (Go gqlgen Engine)
+# Query/Mutation Endpoint: https://api.golkarjateng.com/graphql
+# WebSocket Subscriptions: wss://ws.golkarjateng.com/graphql
+
+query GetKabupatenTabulasi($kabupatenId: ID!) {
+  kabupaten(id: $kabupatenId) {
+    id
+    nama
+    totalTps
+    tpsMasuk
+    suaraGolkar
+    persentase
+    kandidatUnggul {
+      nomorUrut
+      namaCalon
+      totalSuara
+    }
+  }
+}
+
+subscription OnLiveC1Verified($dapilId: ID!) {
+  c1PlanoVerified(dapilId: $dapilId) {
+    tpsId
+    timestamp
+    suaraPartaiGolkar
+    hashSha256
+    statusVerifikasi
+  }
+}`,
+
+    newman: `# Automated API Regression Testing via Postman & Newman CLI
+npm install -g newman newman-reporter-htmlextra
+
+# Eksekusi full collection test contract API & Webhook
+newman run ./postman/GolkarJateng_Core_API.postman_collection.json \\
+  -e ./postman/GolkarJateng_Production.postman_environment.json \\
+  --reporters cli,htmlextra \\
+  --reporter-htmlextra-export ./reports/api-contract-report.html \\
+  --bail`
   };
 
   return (
@@ -664,7 +704,7 @@ async def handle_incoming_message(request: Request):
           }}
         >
           <BookOpen size={16} color={activeTab === 'api_docs' ? '#f59e0b' : '#64748b'} />
-          <span>REST API Reference</span>
+          <span>GraphQL & REST API</span>
         </button>
 
         <button
@@ -1772,16 +1812,186 @@ async def handle_incoming_message(request: Request):
       )}
 
       {/* ======================================================================= */}
-      {/* TAB 2: REST API REFERENCE */}
+      {/* ======================================================================= */}
+      {/* TAB 2: GRAPHQL & REST API REFERENCE + TESTING + PROJECT MANAGEMENT */}
       {/* ======================================================================= */}
       {activeTab === 'api_docs' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', minWidth: 0, width: '100%' }}>
+          
+          {/* Section 1: GraphQL Architecture */}
+          <div className="enterprise-panel">
+            <div className="panel-header" style={{ marginBottom: '16px' }}>
+              <div className="panel-title-wrap">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ backgroundColor: '#fdf2f8', border: '1px solid #fbcfe8', color: '#db2777', fontWeight: 800, padding: '3px 8px', borderRadius: '6px', fontSize: '11px', fontFamily: 'monospace' }}>
+                    GRAPHQL
+                  </span>
+                  <span className="panel-title" style={{ fontSize: '16px' }}>
+                    Unified GraphQL Gateway (Go gqlgen Engine)
+                  </span>
+                </div>
+                <span className="panel-subtitle">
+                  Schema-First query and subscription layer untuk data terdistribusi 35 Kabupaten/Kota Jawa Tengah
+                </span>
+              </div>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <span style={{ fontSize: '11px', padding: '4px 10px', borderRadius: '6px', backgroundColor: '#f0fdf4', color: '#16a34a', fontWeight: 700, border: '1px solid #bbf7d0' }}>
+                  Subscriptions Active (WebSocket)
+                </span>
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '14px', marginBottom: '16px' }}>
+              <div style={{ padding: '14px', borderRadius: '10px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                <div style={{ fontSize: '11px', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>HTTP Query & Mutation Endpoint</div>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a', fontFamily: 'monospace', marginTop: '4px' }}>
+                  https://api.golkarjateng.com/graphql
+                </div>
+                <div style={{ fontSize: '11.5px', color: '#475569', marginTop: '6px' }}>
+                  Single entrypoint untuk seluruh query data relasional terstruktur (Kader, TPS, Hasil Pemilu).
+                </div>
+              </div>
+
+              <div style={{ padding: '14px', borderRadius: '10px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                <div style={{ fontSize: '11px', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>WebSocket Subscriptions Endpoint</div>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a', fontFamily: 'monospace', marginTop: '4px' }}>
+                  wss://ws.golkarjateng.com/graphql
+                </div>
+                <div style={{ fontSize: '11.5px', color: '#475569', marginTop: '6px' }}>
+                  Streaming real-time update suara C1 Plano TPS langsung ke Command Center pimpinan.
+                </div>
+              </div>
+            </div>
+
+            <div style={{ borderRadius: '10px', backgroundColor: '#0f172a', padding: '16px', color: '#38bdf8', fontFamily: 'monospace', fontSize: '12px', lineHeight: 1.5, position: 'relative' }}>
+              <div style={{ color: '#94a3b8', fontSize: '11px', marginBottom: '8px' }}># Sample Query: Hierarchical Tabulation & Subscriptions</div>
+              <pre style={{ margin: 0, overflowX: 'auto', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
+{`query GetHierarchicalVoteTabulation($dapilId: ID!) {
+  dapil(id: $dapilId) {
+    nama
+    totalSuaraPartai
+    kabupatenList {
+      nama
+      persentaseMasuk
+      suaraGolkar
+      tpsSelesai
+    }
+  }
+}`}
+              </pre>
+            </div>
+          </div>
+
+          {/* Section 2: Postman Testing & Newman CI/CD */}
+          <div className="enterprise-panel">
+            <div className="panel-header" style={{ marginBottom: '14px' }}>
+              <div className="panel-title-wrap">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ backgroundColor: '#fff7ed', border: '1px solid #fed7aa', color: '#ea580c', fontWeight: 800, padding: '3px 8px', borderRadius: '6px', fontSize: '11px', fontFamily: 'monospace' }}>
+                    POSTMAN
+                  </span>
+                  <span className="panel-title" style={{ fontSize: '16px' }}>
+                    Testing Developer & API Workspace Postman
+                  </span>
+                </div>
+                <span className="panel-subtitle">
+                  Koleksi pengujian contract testing otomatis, mock server, dan CI/CD Newman runner
+                </span>
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '12px', marginBottom: '16px' }}>
+              <div style={{ padding: '14px', borderRadius: '10px', border: '1px solid #e2e8f0', backgroundColor: '#ffffff' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '12.5px', fontWeight: 800, color: '#0f172a' }}>📦 Core API Collection</span>
+                  <span style={{ fontSize: '10px', fontWeight: 700, color: '#16a34a', backgroundColor: '#dcfce7', padding: '2px 6px', borderRadius: '4px' }}>42 Tests Passing</span>
+                </div>
+                <div style={{ fontSize: '11.5px', color: '#64748b' }}>
+                  Auth JWT, e-KTA digital, struktur pengurus 35 DPD II, dan master wilayah Jawa Tengah.
+                </div>
+              </div>
+
+              <div style={{ padding: '14px', borderRadius: '10px', border: '1px solid #e2e8f0', backgroundColor: '#ffffff' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '12.5px', fontWeight: 800, color: '#0f172a' }}>💬 Webhook Test Suite</span>
+                  <span style={{ fontSize: '10px', fontWeight: 700, color: '#16a34a', backgroundColor: '#dcfce7', padding: '2px 6px', borderRadius: '4px' }}>HMAC Verified</span>
+                </div>
+                <div style={{ fontSize: '11.5px', color: '#64748b' }}>
+                  Pre-request script SHA-256 Meta handshake verification, inbound message simulation, and photo payload.
+                </div>
+              </div>
+
+              <div style={{ padding: '14px', borderRadius: '10px', border: '1px solid #e2e8f0', backgroundColor: '#ffffff' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '12.5px', fontWeight: 800, color: '#0f172a' }}>🕸️ GraphQL Queries Suite</span>
+                  <span style={{ fontSize: '10px', fontWeight: 700, color: '#0284c7', backgroundColor: '#e0f2fe', padding: '2px 6px', borderRadius: '4px' }}>Schema Validated</span>
+                </div>
+                <div style={{ fontSize: '11.5px', color: '#64748b' }}>
+                  Pengujian validasi schema introspeksi, batasan kedalaman query (depth limit), dan load stress test.
+                </div>
+              </div>
+            </div>
+
+            <div style={{ padding: '12px 16px', borderRadius: '8px', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', fontSize: '12px', color: '#334155' }}>
+              <strong>CLI Command:</strong> Eksekusi regresi otomatis di terminal atau CI/CD pipeline GitHub Actions:
+              <code style={{ display: 'block', backgroundColor: '#0f172a', color: '#f59e0b', padding: '8px 12px', borderRadius: '6px', marginTop: '6px', fontFamily: 'monospace' }}>
+                newman run ./postman/GolkarJateng_Core_API.json -e ./postman/GolkarJateng_Production.env.json --reporters cli,htmlextra
+              </code>
+            </div>
+          </div>
+
+          {/* Section 3: Notion Project Management Hub */}
+          <div className="enterprise-panel">
+            <div className="panel-header" style={{ marginBottom: '14px' }}>
+              <div className="panel-title-wrap">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ backgroundColor: '#f1f5f9', border: '1px solid #cbd5e1', color: '#0f172a', fontWeight: 800, padding: '3px 8px', borderRadius: '6px', fontSize: '11px', fontFamily: 'monospace' }}>
+                    NOTION
+                  </span>
+                  <span className="panel-title" style={{ fontSize: '16px' }}>
+                    Project Management & Knowledge Hub (Notion Workspace DPD I)
+                  </span>
+                </div>
+                <span className="panel-subtitle">
+                  Sentralisasi roadmap produk, sprint agile tim developer, spesifikasi PRD, dan SOP Saksi TPS BSNPG
+                </span>
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px' }}>
+              <div style={{ padding: '14px', borderRadius: '10px', border: '1px solid #e2e8f0', backgroundColor: '#ffffff' }}>
+                <div style={{ fontSize: '12px', fontWeight: 800, color: '#f59e0b', textTransform: 'uppercase', marginBottom: '4px' }}>Sprint Board Kanban</div>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a' }}>Sprint 14: C1 Plano Live Ingress</div>
+                <div style={{ fontSize: '11.5px', color: '#64748b', marginTop: '4px' }}>
+                  Pelacakan tiket: Backlog ➔ In Progress ➔ Code Review ➔ Testing Newman ➔ Production.
+                </div>
+              </div>
+
+              <div style={{ padding: '14px', borderRadius: '10px', border: '1px solid #e2e8f0', backgroundColor: '#ffffff' }}>
+                <div style={{ fontSize: '12px', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', marginBottom: '4px' }}>Product Requirements (PRD)</div>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a' }}>12 Dokumen Spesifikasi Fitur</div>
+                <div style={{ fontSize: '11.5px', color: '#64748b', marginTop: '4px' }}>
+                  Alur verifikasi e-KTP, format formulir C1 Plano saksi, skenario interaktif bot WhatsApp, dan WebGIS.
+                </div>
+              </div>
+
+              <div style={{ padding: '14px', borderRadius: '10px', border: '1px solid #e2e8f0', backgroundColor: '#ffffff' }}>
+                <div style={{ fontSize: '12px', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', marginBottom: '4px' }}>SOP & Disaster Playbook</div>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a' }}>Prosedur Pengawalan Suara TPS</div>
+                <div style={{ fontSize: '11.5px', color: '#64748b', marginTop: '4px' }}>
+                  Standar saksi BSNPG Jateng, mitigasi gangguan jaringan desa, dan penanganan serangan siber.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Section 4: REST API Reference (Endpoints) */}
           <div className="enterprise-panel">
             <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: '0 0 6px 0' }}>
-              Dokumentasi Spesifikasi REST API DPD I Jawa Tengah
+              Dokumentasi Spesifikasi REST & Webhook API
             </h3>
-            <p style={{ fontSize: '13px', color: '#64748b', margin: '0 0 20px 0' }}>
-              Daftar endpoint API publik dan internal untuk interoperabilitas aplikasi mobile, bot, dan sistem tabulasi C1.
+            <p style={{ fontSize: '13px', color: '#64748b', margin: '0 0 16px 0' }}>
+              Daftar endpoint REST untuk integrasi sistem eksternal, Meta Cloud API, dan verifikasi KTA ber-QR Code.
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
@@ -1850,8 +2060,8 @@ async def handle_incoming_message(request: Request):
               </div>
 
               {/* Language Switcher */}
-              <div style={{ display: 'flex', gap: '6px' }}>
-                {['curl', 'nodejs', 'python'].map((lang) => (
+              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                {['curl', 'graphql', 'nodejs', 'python', 'newman'].map((lang) => (
                   <button
                     key={lang}
                     type="button"
