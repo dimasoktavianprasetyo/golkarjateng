@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { 
-  Lock, 
-  Mail, 
-  Eye, 
-  EyeOff, 
-  LogIn, 
-  UserPlus, 
-  HelpCircle, 
-  CheckCircle2, 
+import {
+  Lock,
+  Mail,
+  Eye,
+  EyeOff,
+  LogIn,
+  UserPlus,
+  HelpCircle,
+  CheckCircle2,
   ChevronDown,
   ShieldCheck,
   Building2,
@@ -70,37 +70,36 @@ export default function LoginPage({ onLogin }) {
 
   return (
     <div style={{
-      minHeight: '100vh',
+      height: '100vh',
       width: '100vw',
-      backgroundColor: '#1c1a18',
-      backgroundImage: 'radial-gradient(circle at 50% 40%, #292523 0%, #121110 85%)',
+      backgroundColor: '#141210',
+      backgroundImage: 'radial-gradient(circle at 50% 40%, #26221f 0%, #0d0c0b 85%)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '24px',
+      padding: '16px',
       boxSizing: 'border-box',
+      overflow: 'hidden',
       fontFamily: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
     }}>
-      {/* Outer Container Frame matching reference split layout */}
+      {/* Full-size Rounded Outer Frame */}
       <div style={{
-        width: '1200px',
-        maxWidth: '96vw',
-        height: '760px',
-        maxHeight: '92vh',
+        width: '100%',
+        height: '100%',
         backgroundColor: '#121110',
         borderRadius: '36px',
         overflow: 'hidden',
         display: 'grid',
         gridTemplateColumns: '1.08fr 0.92fr',
-        boxShadow: '0 35px 80px -15px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.08)',
+        boxShadow: '0 30px 80px -15px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.08)',
         position: 'relative'
       }}>
-        
         {/* ========================================================================= */}
         {/* LEFT COLUMN: Visual Showcase with postera.png */}
         {/* ========================================================================= */}
         <div style={{
           position: 'relative',
+          height: '100%',
           backgroundColor: '#0c0b0a',
           display: 'flex',
           alignItems: 'center',
@@ -111,8 +110,8 @@ export default function LoginPage({ onLogin }) {
           {/* Subtle Ambient Radial Lighting Behind Poster */}
           <div style={{
             position: 'absolute',
-            width: '500px',
-            height: '500px',
+            width: '550px',
+            height: '550px',
             borderRadius: '50%',
             background: 'radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(245, 158, 11, 0) 70%)',
             top: '25%',
@@ -122,9 +121,9 @@ export default function LoginPage({ onLogin }) {
           }} />
 
           {/* User's provided poster image */}
-          <img 
-            src={posterImg} 
-            alt="Sistem Manajemen Partai Golkar" 
+          <img
+            src={posterImg}
+            alt="Sistem Manajemen Partai Golkar"
             style={{
               width: '100%',
               height: '100%',
@@ -135,35 +134,6 @@ export default function LoginPage({ onLogin }) {
               filter: 'drop-shadow(0 15px 35px rgba(0,0,0,0.6))'
             }}
           />
-
-          {/* Bottom Floating Status Badge */}
-          <div style={{
-            position: 'absolute',
-            bottom: '24px',
-            left: '24px',
-            zIndex: 10,
-            backgroundColor: 'rgba(18, 17, 16, 0.82)',
-            backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(255, 255, 255, 0.14)',
-            borderRadius: '999px',
-            padding: '7px 16px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '9px',
-            boxShadow: '0 10px 25px rgba(0,0,0,0.5)'
-          }}>
-            <span style={{ 
-              width: '8px', 
-              height: '8px', 
-              borderRadius: '50%', 
-              backgroundColor: '#10b981', 
-              display: 'inline-block',
-              boxShadow: '0 0 8px #10b981' 
-            }} />
-            <span style={{ fontSize: '11px', color: '#e2e8f0', fontWeight: 600, letterSpacing: '0.3px' }}>
-              DPD I Jawa Tengah · 35 Kab/Kota Terkoneksi
-            </span>
-          </div>
         </div>
 
         {/* ========================================================================= */}
@@ -171,30 +141,31 @@ export default function LoginPage({ onLogin }) {
         {/* ========================================================================= */}
         <div style={{
           backgroundColor: '#ffffff',
-          borderRadius: '32px',
+          borderRadius: '30px',
           margin: '10px',
-          padding: '40px 52px',
+          padding: '36px 48px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
           overflowY: 'auto',
-          boxSizing: 'border-box'
+          boxSizing: 'border-box',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.2)'
         }}>
           {/* Top Bar: Brand Logo & Sign Up Link */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <img 
-                src={golkarLogo} 
-                alt="Logo Golkar" 
-                style={{ width: '38px', height: '38px', objectFit: 'contain' }} 
+              <img
+                src={golkarLogo}
+                alt="Logo Golkar"
+                style={{ width: '38px', height: '38px', objectFit: 'contain' }}
               />
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <span style={{ 
-                  fontSize: '18px', 
-                  fontWeight: 800, 
-                  color: '#0f172a', 
+                <span style={{
+                  fontSize: '18px',
+                  fontWeight: 800,
+                  color: '#0f172a',
                   letterSpacing: '-0.4px',
-                  lineHeight: 1.1 
+                  lineHeight: 1.1
                 }}>
                   Golkar Jateng
                 </span>
@@ -204,7 +175,7 @@ export default function LoginPage({ onLogin }) {
               </div>
             </div>
 
-            <button 
+            <button
               type="button"
               onClick={() => {
                 setAlertNotice('Untuk registrasi kader atau akun dinas baru, silakan hubungi Sekretariat DPD I Jawa Tengah.');
@@ -283,8 +254,8 @@ export default function LoginPage({ onLogin }) {
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {/* Input Email or Username */}
               <div style={{ position: 'relative' }}>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Email or Username"
@@ -315,7 +286,7 @@ export default function LoginPage({ onLogin }) {
 
               {/* Input Password */}
               <div style={{ position: 'relative' }}>
-                <input 
+                <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -366,18 +337,18 @@ export default function LoginPage({ onLogin }) {
 
               {/* Forgot Password link (Reddish-orange, left-aligned matching reference image) */}
               <div style={{ marginTop: '-4px', textAlign: 'left', paddingLeft: '4px' }}>
-                <a 
-                  href="#" 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
-                    setAlertNotice('Instruksi pemulihan kata sandi telah dikirim ke nomor WhatsApp pimpinan terdaftar.'); 
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setAlertNotice('Instruksi pemulihan kata sandi telah dikirim ke nomor WhatsApp pimpinan terdaftar.');
                     setTimeout(() => setAlertNotice(''), 4500);
                   }}
-                  style={{ 
-                    fontSize: '13px', 
-                    color: '#f95738', 
-                    fontWeight: 600, 
-                    textDecoration: 'none' 
+                  style={{
+                    fontSize: '13px',
+                    color: '#f95738',
+                    fontWeight: 600,
+                    textDecoration: 'none'
                   }}
                   onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
                   onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
@@ -430,16 +401,16 @@ export default function LoginPage({ onLogin }) {
 
               {/* Quick Demo Switcher Cards */}
               <div style={{ marginTop: '18px', paddingTop: '16px', borderTop: '1px solid #f3f4f6' }}>
-                <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'space-between', 
-                  fontSize: '11px', 
-                  fontWeight: 700, 
-                  color: '#9ca3af', 
-                  textTransform: 'uppercase', 
-                  marginBottom: '10px', 
-                  letterSpacing: '0.4px' 
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  color: '#9ca3af',
+                  textTransform: 'uppercase',
+                  marginBottom: '10px',
+                  letterSpacing: '0.4px'
                 }}>
                   <span>Pilih Akun Demo (1-Klik):</span>
                   <span style={{ color: '#f97316' }}>{selectedRole.toUpperCase()}</span>
@@ -469,22 +440,22 @@ export default function LoginPage({ onLogin }) {
                           if (!isSelected) e.currentTarget.style.borderColor = '#e5e7eb';
                         }}
                       >
-                        <div style={{ 
-                          fontSize: '12px', 
-                          fontWeight: 700, 
-                          color: isSelected ? '#c2410c' : '#111827', 
-                          whiteSpace: 'nowrap', 
-                          overflow: 'hidden', 
-                          textOverflow: 'ellipsis' 
+                        <div style={{
+                          fontSize: '12px',
+                          fontWeight: 700,
+                          color: isSelected ? '#c2410c' : '#111827',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis'
                         }}>
                           {acc.name}
                         </div>
-                        <div style={{ 
-                          fontSize: '10.5px', 
-                          color: isSelected ? '#ea580c' : '#6b7280', 
-                          whiteSpace: 'nowrap', 
-                          overflow: 'hidden', 
-                          textOverflow: 'ellipsis' 
+                        <div style={{
+                          fontSize: '10.5px',
+                          color: isSelected ? '#ea580c' : '#6b7280',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis'
                         }}>
                           {acc.roleName}
                         </div>
@@ -497,18 +468,18 @@ export default function LoginPage({ onLogin }) {
           </div>
 
           {/* Bottom Footer: Copyright and Contact */}
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center', 
-            fontSize: '11.5px', 
-            color: '#9ca3af', 
-            paddingTop: '12px', 
-            borderTop: '1px solid #f3f4f6' 
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            fontSize: '11.5px',
+            color: '#9ca3af',
+            paddingTop: '12px',
+            borderTop: '1px solid #f3f4f6'
           }}>
             <span>© 2026 DPD Partai Golkar Jawa Tengah</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <span 
+              <span
                 style={{ cursor: 'pointer', transition: 'color 0.15s' }}
                 onMouseEnter={(e) => e.target.style.color = '#4b5563'}
                 onMouseLeave={(e) => e.target.style.color = '#9ca3af'}
@@ -516,7 +487,7 @@ export default function LoginPage({ onLogin }) {
               >
                 Contact Us
               </span>
-              <div 
+              <div
                 style={{ display: 'flex', alignItems: 'center', gap: '3px', cursor: 'pointer' }}
                 onMouseEnter={(e) => e.currentTarget.style.color = '#4b5563'}
                 onMouseLeave={(e) => e.currentTarget.style.color = '#9ca3af'}
@@ -527,7 +498,6 @@ export default function LoginPage({ onLogin }) {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

@@ -22,6 +22,7 @@ import QrCheckInModal from './components/QrCheckInModal';
 import ExportModal from './components/ExportModal';
 import AccountProfileModal from './components/AccountProfileModal';
 import LoginPage from './components/LoginPage';
+import EnterpriseLoadingScreen from './components/EnterpriseLoadingScreen';
 
 import { INITIAL_YOUTH_RECORDS, KAB_KOTA_JATENG, EVENTS_DATA } from './data/mockData';
 
@@ -30,6 +31,38 @@ export default function App() {
   const [currentTab, setCurrentTab] = useState('dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeRole, setActiveRole] = useState('super_admin');
+
+  // Loading Screen State (Frosted Blur Dissolve)
+  const [loadingScreen, setLoadingScreen] = useState({
+    active: true,
+    title: 'GOLKAR JAWA TENGAH',
+    subtitle: 'Youth & Digital Command Center',
+    duration: 1500
+  });
+
+  const handleFinishLoading = () => {
+    setLoadingScreen(prev => ({ ...prev, active: false }));
+  };
+
+  const handleLogin = (role) => {
+    if (role) setActiveRole(role);
+    setIsAuthenticated(true);
+    setLoadingScreen({
+      active: true,
+      title: 'GOLKAR JAWA TENGAH',
+      subtitle: 'Memuat Command Center DPD Golkar Jateng...',
+      duration: 1500
+    });
+  };
+
+  const handleTriggerLoading = (customConfig) => {
+    setLoadingScreen({
+      active: true,
+      title: customConfig?.title || 'GOLKAR JAWA TENGAH',
+      subtitle: customConfig?.subtitle || 'Menyinkronkan data...',
+      duration: customConfig?.duration || 1500
+    });
+  };
 
   // Modals state
   const [isKtpModalOpen, setIsKtpModalOpen] = useState(false);
@@ -58,21 +91,29 @@ export default function App() {
 
   if (!isAuthenticated) {
     return (
-      <LoginPage 
-        onLogin={(role) => {
-          if (role) setActiveRole(role);
-          setIsAuthenticated(true);
-        }} 
-      />
+      <>
+        <LoginPage 
+          onLogin={handleLogin} 
+        />
+        {loadingScreen.active && (
+          <EnterpriseLoadingScreen 
+            title={loadingScreen.title}
+            subtitle={loadingScreen.subtitle}
+            duration={loadingScreen.duration}
+            onFinished={handleFinishLoading}
+          />
+        )}
+      </>
     );
   }
 
   return (
-    <div className="app-layout">
-      {/* Fixed Sidebar */}
-      <Sidebar 
-        currentTab={currentTab}
-        setCurrentTab={setCurrentTab}
+    <>
+      <div className="app-layout">
+        {/* Fixed Sidebar */}
+        <Sidebar 
+          currentTab={currentTab}
+          setCurrentTab={setCurrentTab}
         collapsed={sidebarCollapsed}
         setCollapsed={setSidebarCollapsed}
         youthCount={youthRecords.length}
@@ -93,6 +134,7 @@ export default function App() {
           onOpenAccountModal={() => setIsAccountModalOpen(true)}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          onTriggerLoading={handleTriggerLoading}
         />
 
         {/* Global Search Results Overlay (If user is typing in Omnibar) */}
@@ -250,6 +292,7 @@ export default function App() {
           )}
         </main>
       </div>
+    </div>
 
       {/* Global Interactive Modals */}
       <KtpScannerModal 
@@ -285,6 +328,16 @@ export default function App() {
           setIsAuthenticated(false);
         }}
       />
-    </div>
+
+      {/* Fullscreen Blur Loading Screen Overlay */}
+      {loadingScreen.active && (
+        <EnterpriseLoadingScreen 
+          title={loadingScreen.title}
+          subtitle={loadingScreen.subtitle}
+          duration={loadingScreen.duration}
+          onFinished={handleFinishLoading}
+        />
+      )}
+    </>
   );
 }

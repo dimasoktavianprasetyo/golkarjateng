@@ -36,7 +36,8 @@ export default function Header({
   onOpenAccountModal,
   searchQuery,
   setSearchQuery,
-  onSelectSearchResult
+  onSelectSearchResult,
+  onTriggerLoading
 }) {
   const [currentTime, setCurrentTime] = useState('');
   const [showRoleMenu, setShowRoleMenu] = useState(false);
@@ -178,6 +179,26 @@ export default function Header({
         >
           <FileSpreadsheet size={17} />
         </button>
+
+        {/* Real-time Sync & Loading Animation Trigger */}
+        {onTriggerLoading && (
+          <button
+            className="icon-btn"
+            onClick={() => onTriggerLoading({
+              title: "GOLKAR JAWA TENGAH",
+              subtitle: "Youth & Digital Command Center",
+              duration: 1300
+            })}
+            title="Sinkronisasi Data Real-time & Loading Screen"
+            style={{ 
+              backgroundColor: 'rgba(245, 158, 11, 0.1)', 
+              borderColor: 'rgba(245, 158, 11, 0.25)',
+              color: '#d97706'
+            }}
+          >
+            <Sparkles size={16} />
+          </button>
+        )}
 
         {/* Notifications Dropdown */}
         <div style={{ position: 'relative' }}>

@@ -61,7 +61,7 @@ export default function Sidebar({
           badge: '2 Sub',
           subItems: [
             { id: 'members_wings', label: 'Sayap & Hasta Karya', icon: Users, badge: '9 Organisasi' },
-            { id: 'members_access', label: 'Hak Akses', icon: ShieldAlert, badge: 'RBAC' }
+            { id: 'members_access', label: 'Hierarki Hak Akses', icon: ShieldAlert, badge: 'RBAC' }
           ]
         }
       ]
