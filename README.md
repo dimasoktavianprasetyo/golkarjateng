@@ -1,4 +1,4 @@
-# 🟡 GOLKAR JATENG — YOUTH & DIGITAL COMMAND CENTER
+# GOLKAR JATENG — YOUTH & DIGITAL COMMAND CENTER
 > **Platform Resmi Komando Intelijen Politik, Manajemen Pemuda & Relawan, WebGIS 35 Kab/Kota, Tabulasi C1 Plano, dan WhatsApp Webhook Gateway DPD I Partai Golkar Jawa Tengah.**  
 > **Domain Resmi Produksi:** [www.golkarjateng.com](https://www.golkarjateng.com)
 
@@ -18,11 +18,11 @@
 
 ---
 
-## 📌 Daftar Isi
-1. [Ringkasan Sistem](#-ringkasan-sistem)
-2. [Target Domain & Alokasi Host](#-target-domain--alokasi-host)
-3. [Diagram Arsitektur Sistem (Cloudflare + Caddy + GraphQL + Go Microservices)](#-diagram-arsitektur-sistem)
-4. [Spesifikasi Rencana Tech Stack Lengkap](#-spesifikasi-rencana-tech-stack-lengkap)
+## Daftar Isi
+1. [Ringkasan Sistem](#ringkasan-sistem)
+2. [Target Domain & Alokasi Host](#target-domain--alokasi-host)
+3. [Diagram Arsitektur Sistem (Cloudflare + Caddy + GraphQL + Go Microservices)](#diagram-arsitektur-sistem)
+4. [Spesifikasi Rencana Tech Stack Lengkap](#spesifikasi-rencana-tech-stack-lengkap)
    - [A. Edge & Web Application Firewall (Cloudflare Tier-1)](#a-edge--web-application-firewall-cloudflare-tier-1)
    - [B. Modern Web Server & Ingress (Caddy v2 & Traefik v3)](#b-modern-web-server--ingress-tier-2-kenapa-bukan-cuma-nginx)
    - [C. API Layer: GraphQL & REST Gateway (Tier-3)](#c-api-layer-graphql-schema-first--rest-gateway-tier-3)
@@ -30,19 +30,19 @@
    - [E. Database & Storage Layer (PostgreSQL, PostGIS, Redis Tier-5)](#e-database--storage-layer-tier-5)
    - [F. Frontend Architecture (React 18 / Next.js 15)](#f-frontend-architecture)
    - [G. Container & Kubernetes Orchestration (Docker & K8s)](#g-container--kubernetes-orchestration)
-5. [Alat Kolaborasi, Testing & Project Management](#-alat-kolaborasi-testing--project-management)
+5. [Alat Kolaborasi, Testing & Project Management](#alat-kolaborasi-testing--project-management)
    - [1. Testing & API Workspace: Postman & Newman CI](#1-developer-testing--api-workspace-postman--newman-ci)
    - [2. Project Management & Knowledge Base: Notion](#2-project-management--knowledge-hub-notion)
    - [3. Observability, Design & Quality Standards](#3-observability-design--engineering-standards)
-6. [Arsitektur Keamanan Berlapis (Defense-in-Depth)](#-arsitektur-keamanan-berlapis-defense-in-depth)
-7. [Modul Utama Platform](#-modul-utama-platform)
-8. [Struktur Repositori](#-struktur-repositori)
-9. [Panduan Menjalankan Sistem Secara Lokal](#-panduan-menjalankan-sistem-secara-lokal)
-10. [Spesifikasi Server Produksi & Cloudflare Tunnel](#-spesifikasi-server-produksi--cloudflare-tunnel)
+6. [Arsitektur Keamanan Berlapis (Defense-in-Depth)](#arsitektur-keamanan-berlapis-defense-in-depth)
+7. [Modul Utama Platform](#modul-utama-platform)
+8. [Struktur Repositori](#struktur-repositori)
+9. [Panduan Menjalankan Sistem Secara Lokal](#panduan-menjalankan-sistem-secara-lokal)
+10. [Spesifikasi Server Produksi & Cloudflare Tunnel](#spesifikasi-server-produksi--cloudflare-tunnel)
 
 ---
 
-## 🏛️ Ringkasan Sistem
+## Ringkasan Sistem
 
 **GolkarJateng Command Center** adalah platform enterprise terintegrasi tingkat provinsi yang dirancang untuk mengonsolidasikan seluruh lini pemenangan pemilu, pemetaan geospasial, keanggotaan pemuda, dan pengawalan suara di 35 Kabupaten/Kota Jawa Tengah (576 Kecamatan, 8.562 Desa/Kelurahan).
 
@@ -50,7 +50,7 @@ Platform ini beroperasi dengan infrastruktur berkeamanan tinggi yang dilindungi 
 
 ---
 
-## 🌐 Target Domain & Alokasi Host
+## Target Domain & Alokasi Host
 
 Sistem direncanakan rilis di bawah domain resmi **`golkarjateng.com`** dengan sub-alokasi arsitektur:
 
@@ -64,56 +64,56 @@ Sistem direncanakan rilis di bawah domain resmi **`golkarjateng.com`** dengan su
 
 ---
 
-## 📐 Diagram Arsitektur Sistem
+## Diagram Arsitektur Sistem
 
 ```mermaid
 flowchart TB
-    subgraph InternetLayer ["🌐 Public Internet & Saksi TPS"]
-        USER_BROWSER["💻 Browser Pimpinan & Staf\n(app.golkarjateng.com)"]
-        MOBILE_SAKSI["📱 Mobile Saksi & Relawan\n(PWA / App)"]
-        META_WA["💬 Meta WhatsApp Business API\n(Inbound Webhook)"]
-        DEV_TEST["📮 Postman API Testing Workspace\n(Newman Automated CI/CD)"]
+    subgraph InternetLayer ["Public Internet & Saksi TPS"]
+        USER_BROWSER["Browser Pimpinan & Staf\n(app.golkarjateng.com)"]
+        MOBILE_SAKSI["Mobile Saksi & Relawan\n(PWA / App)"]
+        META_WA["Meta WhatsApp Business API\n(Inbound Webhook)"]
+        DEV_TEST["Postman API Testing Workspace\n(Newman Automated CI/CD)"]
     end
 
-    subgraph CloudflareEdge ["🛡️ LAYER 1: Cloudflare Enterprise Edge & WAF"]
-        CF_DNS["🌍 Cloudflare Anycast DNSSEC\n(DNS: www.golkarjateng.com)"]
-        CF_WAF["🔥 Cloudflare WAF & OWASP CRS\n(SQLi, XSS, RCE Filter)"]
-        CF_DDOS["⚡ Unmetered Anti-DDoS & Bot Mgmt\n(Under Attack Mode Siaga Pemilu)"]
-        CF_CDN["⚡ Anycast Edge Cache\n(Jakarta & Singapore PoP < 10ms TTFB)"]
-        CF_TUNNEL["🚇 Cloudflare Tunnel (cloudflared)\n(ZERO Open Inbound Ports on Host)"]
+    subgraph CloudflareEdge ["LAYER 1: Cloudflare Enterprise Edge & WAF"]
+        CF_DNS["Cloudflare Anycast DNSSEC\n(DNS: www.golkarjateng.com)"]
+        CF_WAF["Cloudflare WAF & OWASP CRS\n(SQLi, XSS, RCE Filter)"]
+        CF_DDOS["Unmetered Anti-DDoS & Bot Mgmt\n(Under Attack Mode Siaga Pemilu)"]
+        CF_CDN["Anycast Edge Cache\n(Jakarta & Singapore PoP < 10ms TTFB)"]
+        CF_TUNNEL["Cloudflare Tunnel (cloudflared)\n(ZERO Open Inbound Ports on Host)"]
     end
 
-    subgraph WebServerLayer ["🚀 LAYER 2: Modern Web Server & Ingress"]
-        CADDY_SERVER["🏎️ Caddy v2 / Traefik v3\n(HTTP/3 QUIC over UDP · Auto-ZeroSSL · Coraza WAF)"]
+    subgraph WebServerLayer ["LAYER 2: Modern Web Server & Ingress"]
+        CADDY_SERVER["Caddy v2 / Traefik v3\n(HTTP/3 QUIC over UDP · Auto-ZeroSSL · Coraza WAF)"]
     end
 
-    subgraph ApiGatewayMesh ["⚡ LAYER 3: Unified API & GraphQL Gateway (Go)"]
-        GQL_GATEWAY["🕸️ GraphQL Unified Gateway (Go gqlgen)\n(Queries · Mutations · Subscriptions)"]
-        REST_GATEWAY["🚀 REST API Gateway (Fiber / Gin)\n(JWT Auth · Router · Rate Limiter)"]
-        GO_WS_HUB["⚡ Real-Time WebSocket Hub (Go)\n(Live Tabulasi C1 · Streaming Sentimen)"]
+    subgraph ApiGatewayMesh ["LAYER 3: Unified API & GraphQL Gateway (Go)"]
+        GQL_GATEWAY["GraphQL Unified Gateway (Go gqlgen)\n(Queries · Mutations · Subscriptions)"]
+        REST_GATEWAY["REST API Gateway (Fiber / Gin)\n(JWT Auth · Router · Rate Limiter)"]
+        GO_WS_HUB["Real-Time WebSocket Hub (Go)\n(Live Tabulasi C1 · Streaming Sentimen)"]
     end
 
-    subgraph BackendMesh ["⚙️ LAYER 4: Microservices Backend (Golang gRPC)"]
-        GRPC_CORE["📦 Core Platform Service (gRPC)\n(Data Kader · KTA · Struktur)"]
-        GRPC_TABULASI["🗳️ Election Engine (gRPC + Go Worker)\n(Tabulasi Suara TPS · Hash C1 Plano)"]
-        GRPC_OCR["👁️ Computer Vision OCR Worker\n(Python FastAPI + OpenCV + Tesseract)"]
-        GO_WA_BOT["🤖 WhatsApp Bot Dispatcher (Go)\n(Auto-Reply KTA & Lapor C1)"]
+    subgraph BackendMesh ["LAYER 4: Microservices Backend (Golang gRPC)"]
+        GRPC_CORE["Core Platform Service (gRPC)\n(Data Kader · KTA · Struktur)"]
+        GRPC_TABULASI["Election Engine (gRPC + Go Worker)\n(Tabulasi Suara TPS · Hash C1 Plano)"]
+        GRPC_OCR["Computer Vision OCR Worker\n(Python FastAPI + OpenCV + Tesseract)"]
+        GO_WA_BOT["WhatsApp Bot Dispatcher (Go)\n(Auto-Reply KTA & Lapor C1)"]
     end
 
-    subgraph CachingBroker ["📬 LAYER 5: Message Queue & Distributed Cache"]
-        REDIS_CLUSTER["⚡ Redis 7.2 Cluster\n(Pub/Sub WS Hub · Session Store · Idempotency)"]
+    subgraph CachingBroker ["LAYER 5: Message Queue & Distributed Cache"]
+        REDIS_CLUSTER["Redis 7.2 Cluster\n(Pub/Sub WS Hub · Session Store · Idempotency)"]
     end
 
-    subgraph StorageLayer ["🗄️ LAYER 6: Database & Object Storage"]
-        POSTGRES_DB[("🐘 PostgreSQL 16.3 (Master)\n(Relational Core Data · ACID Compliant)")]
-        POSTGIS_EXT[("🗺️ PostGIS 3.4 Spatial Engine\n(Batas Wilayah 35 Kab/Kota · Spasial GIS)")]
-        PGBOUNCER["🔄 PgBouncer (Connection Pooling)"]
-        R2_S3["☁️ Cloudflare R2 / S3 Bucket\n(Foto KTP & Scan C1 Plano AES-256)"]
+    subgraph StorageLayer ["LAYER 6: Database & Object Storage"]
+        POSTGRES_DB[("PostgreSQL 16.3 (Master)\n(Relational Core Data · ACID Compliant)")]
+        POSTGIS_EXT[("PostGIS 3.4 Spatial Engine\n(Batas Wilayah 35 Kab/Kota · Spasial GIS)")]
+        PGBOUNCER["PgBouncer (Connection Pooling)"]
+        R2_S3["Cloudflare R2 / S3 Bucket\n(Foto KTP & Scan C1 Plano AES-256)"]
     end
 
-    subgraph ProjectManagement ["📋 Project Management & Quality Assurance"]
-        NOTION_PM["📝 Notion Workspace\n(Kanban Sprints · PRD · SOP Saksi)"]
-        POSTMAN_HUB["📮 Postman Team Workspace\n(Collections · Environments · Mock Servers)"]
+    subgraph ProjectManagement ["Project Management & Quality Assurance"]
+        NOTION_PM["Notion Workspace\n(Kanban Sprints · PRD · SOP Saksi)"]
+        POSTMAN_HUB["Postman Team Workspace\n(Collections · Environments · Mock Servers)"]
     end
 
     %% Flows
@@ -151,7 +151,7 @@ flowchart TB
 
 ---
 
-## 🛠️ Spesifikasi Rencana Tech Stack Lengkap
+## Spesifikasi Rencana Tech Stack Lengkap
 
 ### A. Edge & Web Application Firewall (Cloudflare Tier-1)
 Untuk domain produksi **`www.golkarjateng.com`**, implementasi Cloudflare menjadi garda terdepan pertahanan siber:
@@ -196,7 +196,7 @@ Untuk memberikan fleksibilitas konsumsi data bagi Frontend Dashboard dan Mobile 
 * **Engine GraphQL:** **`gqlgen` (Golang)** — pustaka GraphQL berbasis *Schema-First* yang menghasilkan Go code type-safe berkinerja tinggi.
 * **Keunggulan GraphQL untuk GolkarJateng:**
   * **Zero Over-Fetching & Under-Fetching:** Dashboard hanya meminta field yang dibutuhkan (misal: hanya nama calon dan persentase suara tanpa memuat seluruh metadata TPS).
-  * **Relasi Hierarki Kompleks dalam 1 Query:** Mengambil struktur Provinsi ➔ Kabupaten ➔ Kecamatan ➔ Kelurahan ➔ TPS ➔ Saksi Terdaftar hanya dalam satu network round-trip.
+  * **Relasi Hierarki Kompleks dalam 1 Query:** Mengambil struktur Provinsi -> Kabupaten -> Kecamatan -> Kelurahan -> TPS -> Saksi Terdaftar hanya dalam satu network round-trip.
   * **GraphQL Subscriptions (Real-Time Live Votes):** Berjalan di atas WebSocket (`ws.golkarjateng.com/graphql`) untuk menyiarkan update perolehan suara formulir C1 Plano seketika ke layar pimpinan saat diverifikasi OCR.
 * **REST & Webhook Endpoint:** Tetap disediakan untuk integrasi pihak ketiga, seperti Meta WhatsApp Cloud API (`/api/whatsapp-webhook`) dan upload biner dokumen formulir C1 Plano (`/api/v1/c1/upload`).
 
@@ -252,7 +252,7 @@ Untuk memberikan fleksibilitas konsumsi data bagi Frontend Dashboard dan Mobile 
 
 ---
 
-## 👥 Alat Kolaborasi, Testing & Project Management
+## Alat Kolaborasi, Testing & Project Management
 
 Untuk menjamin siklus pengembangan perangkat lunak (SDLC) yang profesional, terstruktur, dan teruji:
 
@@ -288,7 +288,7 @@ Seluruh manajemen produk, strategi teknis pemenangan, dan dokumentasi operasiona
 
 ---
 
-## 🔒 Arsitektur Keamanan Berlapis (Defense-in-Depth)
+## Arsitektur Keamanan Berlapis (Defense-in-Depth)
 
 ```
 [ Pengguna / Saksi TPS ]
@@ -334,7 +334,7 @@ Seluruh manajemen produk, strategi teknis pemenangan, dan dokumentasi operasiona
 
 ---
 
-## 🚀 Modul Utama Platform
+## Modul Utama Platform
 
 | Modul | Deskripsi Fungsional |
 |---|---|
@@ -349,7 +349,7 @@ Seluruh manajemen produk, strategi teknis pemenangan, dan dokumentasi operasiona
 
 ---
 
-## 📂 Struktur Repositori
+## Struktur Repositori
 
 ```text
 GolkarJateng/
@@ -401,7 +401,7 @@ GolkarJateng/
 
 ---
 
-## 💻 Panduan Menjalankan Sistem Secara Lokal
+## Panduan Menjalankan Sistem Secara Lokal
 
 ### Prasyarat
 * **Node.js:** v18.0.0 atau lebih baru
@@ -438,7 +438,7 @@ GolkarJateng/
 
 ---
 
-## 🌐 Spesifikasi Server Produksi & Cloudflare Tunnel
+## Spesifikasi Server Produksi & Cloudflare Tunnel
 
 ### 1. Spesifikasi Server Dedicated VPS (vps-prod-jateng-01)
 * **Penyedia:** G-Core Cloud / Biznet Gio Tier-3 DC (Jakarta / Semarang Edge Point)
