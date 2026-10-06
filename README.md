@@ -491,7 +491,7 @@ www.golkarjateng.com, golkarjateng.com {
 ---
 
 <p align="center">
-  <b>DEWAN PIMPINAN DAERAH I PARTAI GOLONGAN KARYA PROVINSI JAWA TENGAH</b><br>
+  <b>DEWAN PIMPINAN DAERAH PARTAI GOLONGAN KARYA PROVINSI JAWA TENGAH</b><br>
   <i>Jl. Kyai Saleh No.1, Mugassari, Kec. Semarang Selatan, Kota Semarang, Jawa Tengah 50249</i><br>
   <sub>Suara Golkar, Suara Rakyat · Golkar Solid, Indonesia Maju · www.golkarjateng.com</sub>
 </p>
