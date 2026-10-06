@@ -196,8 +196,18 @@ export default function App() {
             />
           )}
 
-          {currentTab === 'members' && (
-            <MemberOrganizationModule />
+          {(currentTab === 'members' || currentTab === 'members_wings') && (
+            <MemberOrganizationModule 
+              initialTab="sayap"
+              onTabChange={(tab) => setCurrentTab(tab === 'hierarki' ? 'members_access' : 'members_wings')}
+            />
+          )}
+
+          {currentTab === 'members_access' && (
+            <MemberOrganizationModule 
+              initialTab="hierarki"
+              onTabChange={(tab) => setCurrentTab(tab === 'hierarki' ? 'members_access' : 'members_wings')}
+            />
           )}
 
           {currentTab === 'events' && (

@@ -10,8 +10,21 @@ import {
 } from 'lucide-react';
 import { KAB_KOTA_JATENG } from '../data/mockData';
 
-export default function MemberOrganizationModule() {
-  const [activeTab, setActiveTab] = useState('sayap');
+export default function MemberOrganizationModule({ initialTab = 'sayap', onTabChange }) {
+  const [activeTab, setActiveTab] = useState(initialTab);
+
+  React.useEffect(() => {
+    if (initialTab) {
+      setActiveTab(initialTab);
+    }
+  }, [initialTab]);
+
+  const handleTabSwitch = (tab) => {
+    setActiveTab(tab);
+    if (onTabChange) {
+      onTabChange(tab);
+    }
+  };
 
   const wings = [
     { code: 'AMPG', name: 'Angkatan Muda Partai Golkar', category: 'Sayap Pemuda', members: '184.200', ketua: 'Bambang Eko', badge: 'Pemuda & Pengamanan' },
@@ -39,6 +52,7 @@ export default function MemberOrganizationModule() {
         {/* Tab switch */}
         <div style={{ display: 'flex', gap: '8px', backgroundColor: '#ffffff', padding: '4px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
           <button 
+            type="button"
             style={{ 
               padding: '6px 14px', 
               fontSize: '12px', 
@@ -49,11 +63,12 @@ export default function MemberOrganizationModule() {
               backgroundColor: activeTab === 'sayap' ? '#fef3c7' : 'transparent',
               color: activeTab === 'sayap' ? '#b45309' : '#64748b'
             }}
-            onClick={() => setActiveTab('sayap')}
+            onClick={() => handleTabSwitch('sayap')}
           >
             Sayap & Hasta Karya
           </button>
           <button 
+            type="button"
             style={{ 
               padding: '6px 14px', 
               fontSize: '12px', 
@@ -64,9 +79,9 @@ export default function MemberOrganizationModule() {
               backgroundColor: activeTab === 'hierarki' ? '#ecfdf5' : 'transparent',
               color: activeTab === 'hierarki' ? '#065f46' : '#64748b'
             }}
-            onClick={() => setActiveTab('hierarki')}
+            onClick={() => handleTabSwitch('hierarki')}
           >
-            Hierarki Hak Akses (RBAC)
+            Hak Akses (RBAC)
           </button>
         </div>
       </div>

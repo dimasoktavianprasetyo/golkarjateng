@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   LayoutDashboard, 
   Map, 
@@ -14,6 +14,7 @@ import {
   UserCheck,
   ChevronLeft, 
   ChevronRight,
+  ChevronDown,
   Sparkles,
   Terminal
 } from 'lucide-react';
@@ -29,6 +30,16 @@ export default function Sidebar({
   pendingC1Count = 12,
   onOpenAccountModal
 }) {
+  const [openSubMenus, setOpenSubMenus] = useState({ members: true });
+
+  const toggleSubMenu = (id, e) => {
+    if (e) e.stopPropagation();
+    setOpenSubMenus(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
   const navSections = [
     {
       title: 'COMMAND CENTER',
@@ -43,7 +54,16 @@ export default function Sidebar({
       items: [
         { id: 'youth', label: 'Database Pemuda', icon: Users, badge: '384k' },
         { id: 'kta', label: 'Manajemen KTA Digital', icon: CreditCard, badge: 'QR KTA' },
-        { id: 'members', label: 'Struktur Organisasi', icon: Building2 }
+        { 
+          id: 'members', 
+          label: 'Struktur Organisasi', 
+          icon: Building2, 
+          badge: '2 Sub',
+          subItems: [
+            { id: 'members_wings', label: 'Sayap & Hasta Karya', icon: Users, badge: '9 Organisasi' },
+            { id: 'members_access', label: 'Hak Akses', icon: ShieldAlert, badge: 'RBAC' }
+          ]
+        }
       ]
     },
     {
@@ -112,19 +132,123 @@ export default function Sidebar({
             <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
               {section.items.map((item) => {
                 const IconComponent = item.icon;
-                const isActive = currentTab === item.id;
+                const hasSubItems = Boolean(item.subItems && item.subItems.length > 0);
+                const isParentActive = currentTab === item.id || (hasSubItems && item.subItems.some(s => s.id === currentTab));
+                const isOpen = Boolean(openSubMenus[item.id]);
 
                 return (
-                  <div
-                    key={item.id}
-                    className={`nav-item ${isActive ? 'active' : ''}`}
-                    onClick={() => setCurrentTab(item.id)}
-                    title={collapsed ? item.label : undefined}
-                  >
-                    <IconComponent size={18} strokeWidth={isActive ? 2.4 : 1.8} style={{ flexShrink: 0 }} />
-                    {!collapsed && <span className="nav-item-label">{item.label}</span>}
-                    {!collapsed && item.badge && (
-                      <span className="nav-badge">{item.badge}</span>
+                  <div key={item.id} style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div
+                      className={`nav-item ${isParentActive ? 'active' : ''}`}
+                      onClick={() => {
+                        if (hasSubItems) {
+                          if (collapsed) {
+                            setCollapsed(false);
+                          }
+                          toggleSubMenu(item.id);
+                          if (!isParentActive) {
+                            setCurrentTab(item.subItems[0].id);
+                          }
+                        } else {
+                          setCurrentTab(item.id);
+                        }
+                      }}
+                      title={collapsed ? item.label : undefined}
+                      style={{ position: 'relative' }}
+                    >
+                      <IconComponent size={18} strokeWidth={isParentActive ? 2.4 : 1.8} style={{ flexShrink: 0 }} />
+                      {!collapsed && <span className="nav-item-label">{item.label}</span>}
+                      
+                      {!collapsed && !hasSubItems && item.badge && (
+                        <span className="nav-badge">{item.badge}</span>
+                      )}
+
+                      {!collapsed && hasSubItems && (
+                        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                          {item.badge && (
+                            <span className="nav-badge" style={{ margin: 0, padding: '2px 6px', fontSize: '10px' }}>
+                              {item.badge}
+                            </span>
+                          )}
+                          <ChevronDown 
+                            size={14} 
+                            style={{ 
+                              transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', 
+                              transition: 'transform 0.2s ease',
+                              color: isParentActive ? 'var(--golkar-dark-gold)' : 'var(--slate-400)'
+                            }} 
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Sub Navigation Items (Sayap & Hasta Karya serta Hak Akses) */}
+                    {!collapsed && hasSubItems && isOpen && (
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '2px',
+                        margin: '2px 0 5px 12px',
+                        paddingLeft: '14px',
+                        borderLeft: '2px solid rgba(245, 158, 11, 0.35)'
+                      }}>
+                        {item.subItems.map((sub) => {
+                          const isSubActive = currentTab === sub.id;
+                          const SubIcon = sub.icon;
+
+                          return (
+                            <div
+                              key={sub.id}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setCurrentTab(sub.id);
+                              }}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                padding: '6px 10px',
+                                borderRadius: '7px',
+                                fontSize: '12px',
+                                fontWeight: isSubActive ? 800 : 600,
+                                color: isSubActive ? '#b45309' : '#475569',
+                                backgroundColor: isSubActive ? '#fef3c7' : 'transparent',
+                                cursor: 'pointer',
+                                transition: 'all 0.15s ease'
+                              }}
+                              onMouseEnter={(e) => {
+                                if (!isSubActive) {
+                                  e.currentTarget.style.backgroundColor = '#f8fafc';
+                                  e.currentTarget.style.color = '#0f172a';
+                                }
+                              }}
+                              onMouseLeave={(e) => {
+                                if (!isSubActive) {
+                                  e.currentTarget.style.backgroundColor = 'transparent';
+                                  e.currentTarget.style.color = '#475569';
+                                }
+                              }}
+                            >
+                              {SubIcon && <SubIcon size={13} color={isSubActive ? '#b45309' : '#64748b'} />}
+                              <span style={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                {sub.label}
+                              </span>
+                              {sub.badge && (
+                                <span style={{
+                                  fontSize: '9px',
+                                  fontWeight: 700,
+                                  padding: '1px 5px',
+                                  borderRadius: '4px',
+                                  backgroundColor: isSubActive ? '#fde68a' : '#f1f5f9',
+                                  color: isSubActive ? '#92400e' : '#64748b'
+                                }}>
+                                  {sub.badge}
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
                     )}
                   </div>
                 );
