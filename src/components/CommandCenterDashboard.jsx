@@ -1,5 +1,6 @@
 import React from 'react';
 import MetricCard from './MetricCard';
+import ExecutiveGrowthChart from './ExecutiveGrowthChart';
 import { 
   Sun, 
   AlertCircle, 
@@ -134,6 +135,9 @@ export default function CommandCenterDashboard({
           visualType="sparkline-green"
         />
       </div>
+
+      {/* EXECUTIVE ANALYTICS & INTERACTIVE GROWTH CHART */}
+      <ExecutiveGrowthChart />
 
       {/* TWO COLUMN ENTERPRISE SECTION */}
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px', marginBottom: '24px' }}>
