@@ -1,5 +1,5 @@
 # GOLKAR JATENG — YOUTH & DIGITAL COMMAND CENTER
-> **Platform Resmi Komando Intelijen Politik, Manajemen Pemuda & Relawan, WebGIS 35 Kab/Kota, Tabulasi C1 Plano, dan WhatsApp Webhook Gateway DPD I Partai Golkar Jawa Tengah.**  
+> **Platform Resmi Komando Intelijen Politik, Manajemen Pemuda & Relawan, WebGIS 35 Kab/Kota, Tabulasi C1 Plano, dan WhatsApp Webhook Gateway DPD Partai Golkar Jawa Tengah.**  
 > **Domain Resmi Produksi:** [www.golkarjateng.com](https://www.golkarjateng.com)
 
 [![Production Domain](https://img.shields.io/badge/Production-www.golkarjateng.com-F59E0B?style=for-the-badge&logo=google-chrome&logoColor=black)](https://www.golkarjateng.com)
@@ -162,7 +162,7 @@ Untuk domain produksi **`www.golkarjateng.com`**, implementasi Cloudflare menjad
    * Dilengkapi fitur **"Under Attack Mode"** siaga pemilu untuk memblokir botnet jahat secara instan.
 3. **Cloudflare Zero Trust Tunnel (`cloudflared`):**
    * **Zero Open Inbound Ports:** Server VPS tidak perlu membuka port 80, 443, maupun port SSH 22 ke internet publik.
-   * Dashboard Admin (`admin.golkarjateng.com`) diproteksi **Cloudflare Access** dengan wajib autentikasi Google Workspace / Email OTP pengurus DPD I.
+   * Dashboard Admin (`admin.golkarjateng.com`) diproteksi **Cloudflare Access** dengan wajib autentikasi Google Workspace / Email OTP pengurus DPD.
 4. **Anycast Edge Caching (Jakarta & Singapore PoP):**
    * Aset statis web, GeoJSON 35 Kabupaten/Kota Jawa Tengah, dan banner di-cache di edge server terdekat dengan **TTFB < 10ms**.
 5. **SSL/TLS Full (Strict) Mode & DNSSEC:**
@@ -269,7 +269,7 @@ Seluruh integrasi API diuji secara sistematis menggunakan **Postman**:
 * **Postman Mock Servers:** Memungkinkan tim frontend mengembangkan UI sebelum endpoint backend Go selesai dideploy.
 
 ### 2. Project Management & Knowledge Hub: Notion
-Seluruh manajemen produk, strategi teknis pemenangan, dan dokumentasi operasional dikelola melalui **Notion Workspace DPD I Golkar Jateng**:
+Seluruh manajemen produk, strategi teknis pemenangan, dan dokumentasi operasional dikelola melalui **Notion Workspace DPD Golkar Jateng**:
 * **Sprint Board & Kanban Tracking:**
   * Manajemen tiket tugas: *Backlog*, *To Do*, *In Progress*, *Code Review*, *QA Testing*, *Production Ready*.
 * **Product Requirements Document (PRD):**
@@ -338,12 +338,12 @@ Seluruh manajemen produk, strategi teknis pemenangan, dan dokumentasi operasiona
 
 | Modul | Deskripsi Fungsional |
 |---|---|
-| **Executive Overview** | Dashboard ringkasan eksekutif DPD I: total pemilih, sebaran KTA, kesiapan saksi TPS, dan indeks kemenangan. |
+| **Executive Overview** | Dashboard ringkasan eksekutif DPD: total pemilih, sebaran KTA, kesiapan saksi TPS, dan indeks kemenangan. |
 | **WebGIS Jawa Tengah** | Peta interaktif 35 Kab/Kota berbasis spasial dengan filter Dapil RI, Provinsi, dan visualisasi densitas kader. |
 | **Database Pemuda & KTA** | Pencatatan 384.000+ basis pemuda, scanner KTP otomatis, penerbitan e-KTA digital ber-QR Code resmi. |
 | **Saksi TPS & C1 Plano** | Manajemen penugasan saksi BSNPG per-TPS, verifikasi dokumen C1 Plano, dan validasi tabulasi suara. |
 | **Monitoring Isu Publik** | Pantauan sentimen publik medsos, radar percakapan regional Jateng, dan manajemen kampanye broadcast WA. |
-| **Kelola Akses Pengguna** | Role-Based Access Control (RBAC) dengan 5 peran: *Super Admin, Pengurus DPD I, BSNPG, Admin Dapil, Staf Humas*. |
+| **Kelola Akses Pengguna** | Role-Based Access Control (RBAC) dengan 5 peran: *Super Admin, Pengurus DPD, BSNPG, Admin Dapil, Staf Humas*. |
 | **Golkar for Developers** | Portal terdedikasi tim IT: WhatsApp Webhook Gateway, REST API docs, VPS CPU/RAM hardware monitor, dan Docker manager. |
 | **Audit Trail & Keamanan** | Pencatatan jejak audit aktivitas pengguna, proteksi sesi ganda, dan enkripsi data sesuai standar kepemiluan. |
 
